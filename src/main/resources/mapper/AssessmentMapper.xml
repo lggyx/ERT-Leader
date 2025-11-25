@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lggyx.mapper.AssessmentMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lggyx.pojo.entity.Assessment">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="type" property="type" />
+        <result column="status" property="status" />
+        <result column="e_score" property="eScore" />
+        <result column="r_score" property="rScore" />
+        <result column="t_score" property="tScore" />
+        <result column="portrait_id" property="portraitId" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, user_id, type, status, e_score, r_score, t_score, portrait_id, created_at, updated_at
+    </sql>
+
+</mapper>

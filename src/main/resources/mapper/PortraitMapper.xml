@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lggyx.mapper.PortraitMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lggyx.pojo.entity.Portrait">
+        <id column="id" property="id" />
+        <result column="e_level" property="eLevel" />
+        <result column="r_level" property="rLevel" />
+        <result column="t_level" property="tLevel" />
+        <result column="description" property="description" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, e_level, r_level, t_level, description
+    </sql>
+
+</mapper>

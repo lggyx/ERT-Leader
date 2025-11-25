@@ -1,0 +1,65 @@
+# 服务端口
+server:
+  port: 8080
+  servlet:
+    context-path: /
+spring:
+  # 应用名称
+  application:
+    name: ERT-Leader
+    version: 1.0.0
+  # 数据库连接
+  datasource:
+    url: jdbc:mysql://localhost:3306/${MYSQL_DATABASE}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&allowPublicKeyRetrieval=true
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+  # 文件上传配置
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 100MB
+      max-request-size: 500MB
+# mybatis
+mybatis:
+  mapper-locations: classpath:mapper/*xml
+  type-aliases-package: com.lggyx.entity
+# 日志配置
+logging:
+  level:
+    org:
+      springframework:
+        web: debug
+
+# springdoc-openapi项目配置
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: com.lggyx.controller
+# knife4j的增强配置，不需要增强可以不配
+knife4j:
+  enable: true
+  documents:
+    - group: default
+      name: 测试自定义标题分组
+      # 某一个文件夹下所有的.md文件
+      locations: classpath:markdown/*
+    - group: default
+      name: 接口签名
+      # 某一个文件夹下单个.md文件
+      locations: classpath:markdown/todo.md
+  setting:
+    language: zh-CN
+  # 生产环境开启
+  production: false
+  # 开启http basic认证
+  basic:
+    enable: false
+    username: ${KNIFE4J_USER}
+    password: ${KNIFE4J_PASSWORD}
