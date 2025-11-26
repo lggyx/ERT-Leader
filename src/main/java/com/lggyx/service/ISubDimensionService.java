@@ -1,16 +1,16 @@
 package com.lggyx.service;
 
-import com.lggyx.pojo.entity.Portrait;
+import com.lggyx.pojo.entity.SubDimension;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * <p>
- *  服务类
+ * 12 项子能力配置 服务类
  * </p>
  *
  * @author lggyx
  * @since 2025-11-25
  */
-public interface PortraitService extends IService<Portrait> {
+public interface ISubDimensionService extends IService<SubDimension> {
 
 }

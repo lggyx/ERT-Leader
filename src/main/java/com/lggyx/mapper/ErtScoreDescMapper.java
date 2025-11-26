@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
- *  Mapper 接口
+ * 维度得分区间解释 Mapper 接口
  * </p>
  *
  * @author lggyx

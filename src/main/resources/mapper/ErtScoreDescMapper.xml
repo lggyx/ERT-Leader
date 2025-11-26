@@ -11,9 +11,4 @@
         <result column="description" property="description" />
     </resultMap>
 
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        id, dimension_code, min_score, max_score, description
-    </sql>
-
 </mapper>

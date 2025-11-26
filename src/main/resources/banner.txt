@@ -1,11 +1,8 @@
 Application Version: ${application.version}
 Spring Boot Version: ${spring-boot.version}
-Github:              https://github.com/lggyx
-GitEE:                https://gitee.com/lggyx
-YouTube:       https://www.youtube.com/@lggyx
-DouYin:                             lggyx9527
-BiliBili:https://space.bilibili.com/353147531
-ZhiHu:     https://www.zhihu.com/people/lggyx
+Github:              https://github.com/lggyx | DouYin:                             lggyx9527
+GitEE:                https://gitee.com/lggyx | BiliBili:https://space.bilibili.com/353147531
+YouTube:       https://www.youtube.com/@lggyx | ZhiHu:     https://www.zhihu.com/people/lggyx
 ██╗      ██████╗  ██████╗██╗   ██╗██╗  ██╗
 ██║     ██╔════╝ ██╔════╝╚██╗ ██╔╝╚██╗██╔╝
 ██║     ██║  ███╗██║  ███╗╚████╔╝  ╚███╔╝

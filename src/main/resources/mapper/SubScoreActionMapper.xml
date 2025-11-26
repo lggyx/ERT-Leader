@@ -11,9 +11,4 @@
         <result column="action_plan" property="actionPlan" />
     </resultMap>
 
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        id, sub_dim_code, min_score, max_score, action_plan
-    </sql>
-
 </mapper>

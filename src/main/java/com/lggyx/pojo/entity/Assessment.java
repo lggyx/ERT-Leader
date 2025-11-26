@@ -1,77 +1,61 @@
 package com.lggyx.pojo.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
 import java.time.LocalDateTime;
-import lombok.Getter;
-import lombok.Setter;
+import java.io.Serializable;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 
+ * 用户测评记录
  * </p>
  *
  * @author lggyx
  * @since 2025-11-25
  */
-@Getter
-@Setter
+@Data
+@EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
+@TableName("assessment")
+@Schema(description="用户测评记录")
 public class Assessment implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 主键
-     */
+    @Schema(description= "测评记录主键")
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    /**
-     * 用户ID
-     */
+    @Schema(description= "用户外键")
     private Long userId;
 
-    /**
-     * 测评类型：QUICK 快速，FULL 完整
-     */
+    @Schema(description= "测评类型：QUICK 极速，FULL 完整")
     private String type;
 
-    /**
-     * 状态：INIT 初始化，DONE 已完成
-     */
+    @Schema(description= "测评状态：INIT 进行中，DONE 已完成")
     private String status;
 
-    /**
-     * E 维度得分
-     */
+    @Schema(description= "E 维度得分")
     private Integer eScore;
 
-    /**
-     * R 维度得分
-     */
+    @Schema(description= "R 维度得分")
     private Integer rScore;
 
-    /**
-     * T 维度得分
-     */
+    @Schema(description= "T 维度得分")
     private Integer tScore;
 
-    /**
-     * 对应画像ID
-     */
+    @Schema(description= "27 画像外键")
     private Integer portraitId;
 
-    /**
-     * 创建时间
-     */
+    @Schema(description= "创建时间")
     private LocalDateTime createdAt;
 
-    /**
-     * 更新时间
-     */
+    @Schema(description= "更新时间")
     private LocalDateTime updatedAt;
 
 

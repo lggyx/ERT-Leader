@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
- *  Mapper 接口
+ * 题目选项 Mapper 接口
  * </p>
  *
  * @author lggyx

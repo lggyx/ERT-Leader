@@ -16,9 +16,4 @@
         <result column="updated_at" property="updatedAt" />
     </resultMap>
 
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        id, user_id, type, status, e_score, r_score, t_score, portrait_id, created_at, updated_at
-    </sql>
-
 </mapper>

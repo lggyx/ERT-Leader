@@ -1,14 +1,13 @@
 package com.lggyx.controller;
 
 
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
- *  前端控制器
+ * 测评题库 前端控制器
  * </p>
  *
  * @author lggyx
@@ -16,8 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/question")
-@Tag(name = "题目接口",description = "问题接口")
 public class QuestionController {
 
 }
-

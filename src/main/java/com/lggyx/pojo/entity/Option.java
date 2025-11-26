@@ -1,51 +1,45 @@
 package com.lggyx.pojo.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
-import lombok.Getter;
-import lombok.Setter;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 
+ * 题目选项
  * </p>
  *
  * @author lggyx
  * @since 2025-11-25
  */
-@Getter
-@Setter
+@Data
+@EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
+@TableName("option")
+@Schema(description="题目选项")
 public class Option implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 主键
-     */
+    @Schema(description= "选项主键")
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    /**
-     * 所属题目ID
-     */
+    @Schema(description= "所属题目")
     private Long questionId;
 
-    /**
-     * 选项文本
-     */
+    @Schema(description= "选项文本（如'非常符合'）")
     private String label;
 
-    /**
-     * 选项分值
-     */
+    @Schema(description= "分值（1-5）")
     private Integer score;
 
-    /**
-     * 排序号
-     */
+    @Schema(description= "选项顺序")
     private Integer seq;
 
 

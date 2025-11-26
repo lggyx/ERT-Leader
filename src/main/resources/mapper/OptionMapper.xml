@@ -11,9 +11,4 @@
         <result column="seq" property="seq" />
     </resultMap>
 
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        id, question_id, label, score, seq
-    </sql>
-
 </mapper>

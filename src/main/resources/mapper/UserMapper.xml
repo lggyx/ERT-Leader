@@ -17,9 +17,4 @@
         <result column="updated_at" property="updatedAt" />
     </resultMap>
 
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        id, mobile, email, password, name, gender, birth_date, status, role, created_at, updated_at
-    </sql>
-
 </mapper>

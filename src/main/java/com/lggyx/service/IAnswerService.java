@@ -1,16 +1,16 @@
 package com.lggyx.service;
 
-import com.lggyx.pojo.entity.Contact;
+import com.lggyx.pojo.entity.Answer;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * <p>
- *  服务类
+ * 用户答题明细 服务类
  * </p>
  *
  * @author lggyx
  * @since 2025-11-25
  */
-public interface ContactService extends IService<Contact> {
+public interface IAnswerService extends IService<Answer> {
 
 }

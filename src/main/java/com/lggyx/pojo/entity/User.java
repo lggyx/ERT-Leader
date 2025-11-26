@@ -1,83 +1,65 @@
 package com.lggyx.pojo.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
 import java.time.LocalDate;
+import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
-import lombok.Getter;
-import lombok.Setter;
+import java.io.Serializable;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 
+ * 测评用户档案
  * </p>
  *
  * @author lggyx
  * @since 2025-11-25
  */
-@Getter
-@Setter
+@Data
+@EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
+@TableName("user")
+@Schema(description="测评用户档案")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 主键
-     */
+    @Schema(description="用户主键")
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    /**
-     * 手机号
-     */
+    @Schema(description="手机号（唯一）")
     private String mobile;
 
-    /**
-     * 邮箱
-     */
+    @Schema(description="邮箱（唯一）")
     private String email;
 
-    /**
-     * 密码（加密）
-     */
+    @Schema(description="密码（bcrypt 加密）")
     private String password;
 
-    /**
-     * 姓名
-     */
+    @Schema(description="真实姓名")
     private String name;
 
-    /**
-     * 性别：0 未知，1 男，2 女
-     */
+    @Schema(description="性别：0 未知，1 男，2 女")
     private Integer gender;
 
-    /**
-     * 出生日期
-     */
+    @Schema(description="出生日期")
     private LocalDate birthDate;
 
-    /**
-     * 状态：0 禁用，1 启用
-     */
+    @Schema(description="账号状态：0 禁用，1 启用")
     private Integer status;
 
-    /**
-     * 角色：USER 普通用户，INST_ADMIN 机构管理员，SUPER_ADMIN 超级管理员
-     */
+    @Schema(description="角色：USER/INST_ADMIN/SUPER_ADMIN")
     private String role;
 
-    /**
-     * 创建时间
-     */
+    @Schema(description="注册时间")
     private LocalDateTime createdAt;
 
-    /**
-     * 更新时间
-     */
+    @Schema(description="最后更新时间")
     private LocalDateTime updatedAt;
 
 

@@ -5,13 +5,8 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.lggyx.pojo.entity.Answer">
         <id column="assessment_id" property="assessmentId" />
-        <id column="question_id" property="questionId" />
+        <result column="question_id" property="questionId" />
         <result column="option_id" property="optionId" />
     </resultMap>
-
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        assessment_id, question_id, option_id
-    </sql>
 
 </mapper>

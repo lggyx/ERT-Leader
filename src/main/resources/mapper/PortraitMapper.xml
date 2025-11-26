@@ -11,9 +11,4 @@
         <result column="description" property="description" />
     </resultMap>
 
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        id, e_level, r_level, t_level, description
-    </sql>
-
 </mapper>
