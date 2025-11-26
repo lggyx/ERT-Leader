@@ -64,3 +64,8 @@ knife4j:
     enable: false
     username: ${KNIFE4J_USER}
     password: ${KNIFE4J_PASSWORD}
+
+# JWT
+jwt:
+  secret: "change_me_please_at_least_32_chars_123456"
+  expiration: 7200000        # 2h
