@@ -17,6 +17,7 @@ public class JwtFilter extends OncePerRequestFilter {
     private static final AntPathMatcher MATCHER = new AntPathMatcher();
     private static final Set<String> SKIP = Set.of(
             "/doc.html",
+            "/swagger-ui/*",
             "/webjars/**",
             "/v3/api-docs/**",
             "/api/auth/login",
