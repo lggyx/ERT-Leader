@@ -1,7 +1,12 @@
 package com.lggyx.service;
 
+import com.lggyx.pojo.dto.UpdateErtScoreDescDTO;
 import com.lggyx.pojo.entity.ErtScoreDesc;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.lggyx.pojo.vo.ErtScoreDescVO;
+import com.lggyx.result.Result;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +18,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IErtScoreDescService extends IService<ErtScoreDesc> {
 
+    Result<List<ErtScoreDescVO>> getList();
+
+    Result<Void> updates(Integer id, UpdateErtScoreDescDTO updateErtScoreDescDTO);
 }

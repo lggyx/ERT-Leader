@@ -1,7 +1,10 @@
 package com.lggyx.service;
 
+import com.lggyx.pojo.dto.UpdateSubScoreActionDTO;
 import com.lggyx.pojo.entity.SubScoreAction;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.lggyx.pojo.vo.SubScoreActionVO;
+import com.lggyx.result.Result;
 
 /**
  * <p>
@@ -13,4 +16,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ISubScoreActionService extends IService<SubScoreAction> {
 
+    Result<SubScoreActionVO> getList(String subDimCode);
+
+    Result<Void> updates(Integer id, UpdateSubScoreActionDTO updateSubScoreActionDTO);
 }

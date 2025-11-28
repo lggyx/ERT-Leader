@@ -107,7 +107,7 @@ POST /api/auth/login
 
 ### 2.3 获取当前用户信息
 ```http
-GET /api/user/current
+GET /api/auth/current
 ```
 
 **请求头：** `Authorization: Bearer {token}`

@@ -1,7 +1,10 @@
 package com.lggyx.service;
 
+import com.lggyx.pojo.dto.ContactDTO;
 import com.lggyx.pojo.entity.Contact;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.lggyx.pojo.vo.ContactVO;
+import com.lggyx.result.Result;
 
 /**
  * <p>
@@ -13,4 +16,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IContactService extends IService<Contact> {
 
+    Result<ContactVO> getContact();
+
+    Result<Void> updateContact(ContactDTO contactDTO);
 }

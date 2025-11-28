@@ -5,22 +5,16 @@ import com.lggyx.pojo.dto.LoginDTO;
 import com.lggyx.pojo.dto.UserDTO;
 import com.lggyx.pojo.entity.User;
 import com.lggyx.mapper.UserMapper;
+import com.lggyx.pojo.vo.CurrentUserVO;
 import com.lggyx.pojo.vo.LoginVO;
 import com.lggyx.pojo.vo.UserVO;
+import com.lggyx.result.PageResult;
 import com.lggyx.result.Result;
 import com.lggyx.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.lggyx.utils.JwtUtils;
-import com.lggyx.utils.ValidatorUtils;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 /**
@@ -35,7 +29,11 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
     @Resource
     public UserMapper userMapper;
-
+    /**
+     * 用户注册
+     * @param userDTO
+     * @return  Result
+     */
     @Override
     public Result<UserVO> add(UserDTO userDTO) {
         User user = new User();
@@ -56,60 +54,89 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
 
 
-    @Resource
-    private AuthenticationManager authenticationManager;
-    @Resource
-    private JwtUtils jwtUtils;
+    /**
+     * 用户登录
+     * @param loginDTO
+     * @return  Result
+     */
     @Override
-    public Result<LoginVO> login(@Valid LoginDTO userDTO) {
-        //判断用邮箱还是手机号登录
-        Authentication auth = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(userDTO.getAccount(), userDTO.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(auth);
-        String token = jwtUtils.generateToken(userDTO.getAccount());
-        LoginVO loginVO = new LoginVO();
-        loginVO.setToken(token);
-        loginVO.setExpiresIn(String.valueOf(jwtUtils.expiration));
-        User user = null;
-        if (ValidatorUtils.isMobile(userDTO.getAccount())) {          // 正则判断 1\d{10}
-            user = findByMobile(userDTO.getAccount());
-        } else if (ValidatorUtils.isEmail(userDTO.getAccount())) {    // 正则判断邮箱
-            user =findByEmail(userDTO.getAccount());
-        }
-        LoginVO.UserInfo userInfo = new LoginVO.UserInfo();
-        if (user != null) {
-            userInfo.setId(user.getId());
-            userInfo.setName(user.getName());
-            userInfo.setRole(user.getRole());
-        }
-        loginVO.setUserInfo(userInfo);
-        return Result.success(loginVO);
+    public Result<LoginVO> login(@Valid LoginDTO loginDTO) {
+        return Result.success(new LoginVO());
+    }
+    /**
+     * 获取当前用户信息
+     * @return  Result
+     */
+    @Override
+    public Result<CurrentUserVO> getCurrentUser() {
+        return null;
+    }
+    /**
+     * 分页查询用户列表
+     * @param page 页码
+     * @param pageSize 每页数量
+     * @param status 状态：0 禁用，1 启用
+     * @param role 角色：USER/INST_ADMIN/SUPER_ADMIN
+     * @param keyword 关键字
+     * @return  Result
+     */
+    @Override
+    public Result<PageResult> page(Integer page, Integer pageSize, String status, String role, String keyword) {
+        return null;
+    }
+    /**
+     * 启用/禁用用户
+     * @param userId 用户ID
+     * @param status 状态：0 禁用，1 启用
+     * @return  Result
+     */
+    @Override
+    public Result<Void> updateStatus(Long userId, Integer status) {
+        return null;
+    }
+    /**
+     * 修改用户角色
+     * @param userId 用户ID
+     * @param role 角色：USER/INST_ADMIN/SUPER_ADMIN
+     * @return  Result
+     */
+    @Override
+    public Result<Void> updateRole(Long userId, String role) {
+        return null;
     }
 
-    @Override
-    public UserDetails loadUserByLoginKey(String loginKey) {
-        User user = null;
-        if (ValidatorUtils.isMobile(loginKey)) {          // 正则判断 1\d{10}
-            user = findByMobile(loginKey);
-        } else if (ValidatorUtils.isEmail(loginKey)) {    // 正则判断邮箱
-            user =findByEmail(loginKey);
-        }
-        if (user == null) {
-            throw new UsernameNotFoundException("用户不存在");
-        }
-        return org.springframework.security.core.userdetails.User.builder()
-                .username(loginKey)          // 用 loginKey 充当 username
-                .password(user.getPassword())
-                .authorities("ROLE_USER")
-                .build();
-    }
+//    @Override
+//    public UserDetails loadUserByLoginKey(String loginKey) {
+//        User user = null;
+//        if (ValidatorUtils.isMobile(loginKey)) {          // 正则判断 1\d{10}
+//            user = findByMobile(loginKey);
+//        } else if (ValidatorUtils.isEmail(loginKey)) {    // 正则判断邮箱
+//            user =findByEmail(loginKey);
+//        }
+//        if (user == null) {
+//            throw new UsernameNotFoundException("用户不存在");
+//        }
+//        return org.springframework.security.core.userdetails.User.builder()
+//                .username(loginKey)          // 用 loginKey 充当 username
+//                .password(user.getPassword())
+//                .authorities("ROLE_USER")
+//                .build();
+//    }
 
-    // 根据手机号查
+    /**
+     * 根据手机号查
+     * @param mobile
+     * @return
+     */
     User findByMobile(String mobile) {
         return userMapper.selectOne(Wrappers.<User>lambdaQuery().eq(User::getMobile, mobile));
     }
 
-    // 根据邮箱查
+    /**
+     * 根据邮箱查
+     * @param email
+     * @return
+     */
     User findByEmail(String email) {
         return userMapper.selectOne(Wrappers.<User>lambdaQuery().eq(User::getEmail, email));
     }

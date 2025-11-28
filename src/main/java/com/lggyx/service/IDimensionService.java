@@ -1,7 +1,12 @@
 package com.lggyx.service;
 
+import com.lggyx.pojo.dto.DimensionDTO;
 import com.lggyx.pojo.entity.Dimension;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.lggyx.pojo.vo.DimensionVO;
+import com.lggyx.result.Result;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +18,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IDimensionService extends IService<Dimension> {
 
+    Result<List<DimensionVO>> getList();
+
+    Result<Void> updateDesc(String code, DimensionDTO dimensionDTO);
 }

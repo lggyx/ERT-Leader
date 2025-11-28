@@ -1,8 +1,9 @@
-package com.lggyx.controller;
+package com.lggyx.controller.auth;
 
 
 import com.lggyx.pojo.dto.LoginDTO;
 import com.lggyx.pojo.dto.UserDTO;
+import com.lggyx.pojo.vo.CurrentUserVO;
 import com.lggyx.pojo.vo.LoginVO;
 import com.lggyx.pojo.vo.UserVO;
 import com.lggyx.result.Result;
@@ -22,21 +23,27 @@ import org.springframework.web.bind.annotation.*;
  * @since 2025-11-25
  */
 @RestController
-@Tag(name = "用户管理", description = "测评用户档案")
-public class UserController {
+@Tag(name = "认证与用户模块", description = "测评用户档案")
+public class AuthController {
     @Resource
     public IUserService userService;
 
     @PostMapping("/api/auth/register")
-    @Operation(description = "用户注册")
+    @Operation(summary = "用户注册", description = "新用户注册，密码需满足8位以上含字母数字")
     public Result<UserVO> register(@RequestBody UserDTO userDTO) {
         return userService.add(userDTO);
     }
 
     @PostMapping("/api/auth/login")
-    @Operation(description = "用户登录")
+    @Operation(summary = "用户登录", description = "登录成功后返回JWT token，有效期待定")
     public Result<LoginVO> login(@RequestBody @Valid LoginDTO loginDTO) {
         return userService.login(loginDTO);
     }
 
+    @GetMapping("/api/auth/current")
+    @Operation(summary = "获取当前用户信息")
+    public Result<CurrentUserVO> getCurrentUser() {
+        // TODO: 获取当前用户信息，通过 JWT 获取用户 ID
+        return userService.getCurrentUser();
+    }
 }

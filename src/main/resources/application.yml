@@ -7,7 +7,6 @@ spring:
   # 应用名称
   application:
     name: ERT-Leader
-    title: ter
     version: 1.0.0
   # 数据库连接
   datasource:
@@ -64,8 +63,7 @@ knife4j:
     enable: false
     username: ${KNIFE4J_USER}
     password: ${KNIFE4J_PASSWORD}
-
-# JWT
+# jwt
 jwt:
-  secret: "change_me_please_at_least_32_chars_123456"
-  expiration: 7200000        # 2h
+  secret: "WHATEVER_VERY_LONG_SECRET_AT_LEAST_256_BITS"
+  expiration: 86400   # 秒，1 天

@@ -4,11 +4,12 @@ import com.lggyx.pojo.dto.LoginDTO;
 import com.lggyx.pojo.dto.UserDTO;
 import com.lggyx.pojo.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.lggyx.pojo.vo.CurrentUserVO;
 import com.lggyx.pojo.vo.LoginVO;
 import com.lggyx.pojo.vo.UserVO;
+import com.lggyx.result.PageResult;
 import com.lggyx.result.Result;
 import jakarta.validation.Valid;
-import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * <p>
@@ -24,5 +25,11 @@ public interface IUserService extends IService<User> {
 
     Result<LoginVO> login(@Valid LoginDTO userDTO);
 
-    UserDetails loadUserByLoginKey(String username);
+    Result<CurrentUserVO> getCurrentUser();
+
+    Result<PageResult> page(Integer page, Integer pageSize, String status, String role, String keyword);
+
+    Result<Void> updateStatus(Long userId, Integer status);
+
+    Result<Void> updateRole(Long userId, String role);
 }
