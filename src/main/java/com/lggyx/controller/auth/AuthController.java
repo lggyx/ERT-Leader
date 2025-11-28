@@ -42,8 +42,7 @@ public class AuthController {
 
     @GetMapping("/api/auth/current")
     @Operation(summary = "获取当前用户信息")
-    public Result<CurrentUserVO> getCurrentUser() {
-        // TODO: 获取当前用户信息，通过 JWT 获取用户 ID
-        return userService.getCurrentUser();
+    public Result<CurrentUserVO> getCurrentUser(@RequestHeader("Authorization") String token) {
+        return userService.getCurrentUser(token.substring(7));
     }
 }

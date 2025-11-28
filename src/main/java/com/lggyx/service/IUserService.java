@@ -25,7 +25,7 @@ public interface IUserService extends IService<User> {
 
     Result<LoginVO> login(@Valid LoginDTO loginDTO);
 
-    Result<CurrentUserVO> getCurrentUser();
+    Result<CurrentUserVO> getCurrentUser(String token);
 
     Result<PageResult> page(Integer page, Integer pageSize, String status, String role, String keyword);
 

@@ -13,8 +13,11 @@ public class LoginVO {
     private UserInfo userInfo;
     @Data
     public static class UserInfo{
+        @Schema(description = "用户ID")
         private Long id;
+        @Schema(description = "用户名")
         private String name;
+        @Schema(description = "用户角色")
         private String role;
     }
 }

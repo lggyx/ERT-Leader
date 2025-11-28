@@ -8,10 +8,12 @@ import com.lggyx.mapper.UserMapper;
 import com.lggyx.pojo.vo.CurrentUserVO;
 import com.lggyx.pojo.vo.LoginVO;
 import com.lggyx.pojo.vo.UserVO;
+import com.lggyx.properties.JwtProperties;
 import com.lggyx.result.PageResult;
 import com.lggyx.result.Result;
 import com.lggyx.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.lggyx.utils.JwtUtil;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
@@ -29,10 +31,12 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
     @Resource
     public UserMapper userMapper;
+
     /**
      * 用户注册
-     * @param userDTO
-     * @return  Result
+     *
+     * @param userDTO 用户信息
+     * @return Result
      */
     @Override
     public Result<UserVO> add(UserDTO userDTO) {
@@ -51,93 +55,90 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         else return Result.error("用户注册失败");
     }
 
-
-
+    @Resource
+    private JwtProperties jwtProperties;
 
     /**
      * 用户登录
+     *
      * @param loginDTO
-     * @return  Result
+     * @return Result
      */
     @Override
     public Result<LoginVO> login(@Valid LoginDTO loginDTO) {
-        return Result.success(new LoginVO());
+        User user = userMapper.selectOne(Wrappers.<User>lambdaQuery()
+                .eq(User::getMobile, loginDTO.getAccount())
+                .or()
+                .eq(User::getEmail, loginDTO.getAccount()));
+        if (user == null)
+            return Result.error("用户不存在");
+        if (!user.getPassword().equals(loginDTO.getPassword()))
+            return Result.error("密码错误");
+        LoginVO loginVO = new LoginVO();
+        JwtUtil jwtUtil = new JwtUtil(jwtProperties);
+        loginVO.setToken(jwtUtil.generateToken(loginDTO.getAccount()));
+        LoginVO.UserInfo userInfo = new LoginVO.UserInfo();
+        userInfo.setId(user.getId());
+        userInfo.setName(user.getName());
+        userInfo.setRole(user.getRole());
+        loginVO.setUserInfo(userInfo);
+        return Result.success(loginVO);
     }
+
     /**
      * 获取当前用户信息
-     * @return  Result
+     *
+     * @return Result
      */
     @Override
-    public Result<CurrentUserVO> getCurrentUser() {
-        return null;
+    public Result<CurrentUserVO> getCurrentUser(String token) {
+        JwtUtil jwtUtil = new JwtUtil(jwtProperties);
+        String account = jwtUtil.getAccountFromToken(token);
+        CurrentUserVO currentUserVO = new CurrentUserVO();
+        User user = userMapper.selectOne(Wrappers.<User>lambdaQuery()
+                .eq(User::getMobile, account)
+                .or()
+                .eq(User::getEmail, account));
+        BeanUtils.copyProperties(user, currentUserVO);
+        return Result.success(currentUserVO);
     }
+
     /**
      * 分页查询用户列表
-     * @param page 页码
+     *
+     * @param page     页码
      * @param pageSize 每页数量
-     * @param status 状态：0 禁用，1 启用
-     * @param role 角色：USER/INST_ADMIN/SUPER_ADMIN
-     * @param keyword 关键字
-     * @return  Result
+     * @param status   状态：0 禁用，1 启用
+     * @param role     角色：USER/INST_ADMIN/SUPER_ADMIN
+     * @param keyword  关键字
+     * @return Result
      */
     @Override
     public Result<PageResult> page(Integer page, Integer pageSize, String status, String role, String keyword) {
         return null;
     }
+
     /**
      * 启用/禁用用户
+     *
      * @param userId 用户ID
      * @param status 状态：0 禁用，1 启用
-     * @return  Result
+     * @return Result
      */
     @Override
     public Result<Void> updateStatus(Long userId, Integer status) {
         return null;
     }
+
     /**
      * 修改用户角色
+     *
      * @param userId 用户ID
-     * @param role 角色：USER/INST_ADMIN/SUPER_ADMIN
-     * @return  Result
+     * @param role   角色：USER/INST_ADMIN/SUPER_ADMIN
+     * @return Result
      */
     @Override
     public Result<Void> updateRole(Long userId, String role) {
         return null;
-    }
-
-//    @Override
-//    public UserDetails loadUserByLoginKey(String loginKey) {
-//        User user = null;
-//        if (ValidatorUtils.isMobile(loginKey)) {          // 正则判断 1\d{10}
-//            user = findByMobile(loginKey);
-//        } else if (ValidatorUtils.isEmail(loginKey)) {    // 正则判断邮箱
-//            user =findByEmail(loginKey);
-//        }
-//        if (user == null) {
-//            throw new UsernameNotFoundException("用户不存在");
-//        }
-//        return org.springframework.security.core.userdetails.User.builder()
-//                .username(loginKey)          // 用 loginKey 充当 username
-//                .password(user.getPassword())
-//                .authorities("ROLE_USER")
-//                .build();
-//    }
-
-    /**
-     * 根据手机号查
-     * @param mobile
-     * @return
-     */
-    User findByMobile(String mobile) {
-        return userMapper.selectOne(Wrappers.<User>lambdaQuery().eq(User::getMobile, mobile));
-    }
-
-    /**
-     * 根据邮箱查
-     * @param email
-     * @return
-     */
-    User findByEmail(String email) {
-        return userMapper.selectOne(Wrappers.<User>lambdaQuery().eq(User::getEmail, email));
     }
 }
