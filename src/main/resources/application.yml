@@ -67,5 +67,6 @@ knife4j:
     password: ${KNIFE4J_PASSWORD}
 # jwt
 jwt:
-  secret: "WHATEVER_VERY_LONG_SECRET_AT_LEAST_256_BITS"
-  expiration: 86400   # 秒，1 天
+  secretKey: 0HVD8Vw839g8PJDToUCFPnmWuXTK+BzAJG8CHuMgCT8=
+  ttl: 86400
+  token-name: token

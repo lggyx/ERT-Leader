@@ -53,12 +53,11 @@ public class JwtFilter extends OncePerRequestFilter {
             return;
         }
         String token = header.substring(7);
-        if (!jwtUtil.validate(token)) {     // ← 直接使用
+        if (!jwtUtil.validateToken(token)) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
-        String subject = jwtUtil.getSubject(token);
-        request.setAttribute("user", subject);
+        request.setAttribute("account", jwtUtil.getAccountFromToken(token));
         chain.doFilter(request, response);
     }
 }

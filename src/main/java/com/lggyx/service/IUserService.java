@@ -23,7 +23,7 @@ public interface IUserService extends IService<User> {
 
     Result<UserVO> add(UserDTO userDTO);
 
-    Result<LoginVO> login(@Valid LoginDTO userDTO);
+    Result<LoginVO> login(@Valid LoginDTO loginDTO);
 
     Result<CurrentUserVO> getCurrentUser();
 
