@@ -1,4 +1,4 @@
-package com.lggyx.result;
+package com.lggyx.enumeration;
 
 import lombok.Getter;
 

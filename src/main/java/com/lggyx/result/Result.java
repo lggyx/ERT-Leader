@@ -1,5 +1,6 @@
 package com.lggyx.result;
 
+import com.lggyx.enumeration.ErrorCode;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

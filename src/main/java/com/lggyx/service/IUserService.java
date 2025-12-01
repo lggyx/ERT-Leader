@@ -32,4 +32,6 @@ public interface IUserService extends IService<User> {
     Result<Void> updateStatus(Long userId, Integer status);
 
     Result<Void> updateRole(Long userId, String role);
+
+
 }

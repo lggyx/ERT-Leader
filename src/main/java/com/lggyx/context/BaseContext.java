@@ -5,17 +5,17 @@ package com.lggyx.context;
  */
 public class BaseContext {
 
-    public static ThreadLocal<Long> threadLocal = new ThreadLocal<>();
+    public static ThreadLocal<String> threadLocal = new ThreadLocal<>();
 
-    public static void setCurrentId(Long id) {
-        threadLocal.set(id);
+    public static void setCurrentAccount(String account) {
+        threadLocal.set(account);
     }
 
-    public static Long getCurrentId() {
+    public static String getCurrentAccount() {
         return threadLocal.get();
     }
 
-    public static void removeCurrentId() {
+    public static void removeCurrentAccount() {
         threadLocal.remove();
     }
 

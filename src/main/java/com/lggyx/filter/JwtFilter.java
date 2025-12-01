@@ -1,11 +1,12 @@
 package com.lggyx.filter;
 
+import com.lggyx.context.BaseContext;
+import com.lggyx.service.impl.UserServiceImpl;
 import com.lggyx.utils.JwtUtil;
+import jakarta.annotation.Resource;
 import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -66,7 +67,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
             String account = jwtUtil.getAccountFromToken(token);
             request.setAttribute("account", account);
-
+            BaseContext.setCurrentAccount( account);
             chain.doFilter(request, response);
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
