@@ -22,8 +22,11 @@ import java.util.*;
 
 /** todo 测试类
  *      此处的参数为项目路径下的.env.properties文件，启动前需设置参数
+ *      运行此测试类时，请将.env.properties文件放在项目路径下
+ *      参考参数1：spring.config.additional-location=file:D:/ERT-Leader/.env.properties
+ *      参考参数2：spring.config.additional-location=file:D:/WorkSpace/ERT-Leader/.env.properties
  */
-@SpringBootTest(properties = "spring.config.additional-location=file:D:/WorkSpace/ERT-Leader/.env.properties")
+@SpringBootTest(properties = "spring.config.additional-location=file:D:/ERT-Leader/.env.properties")
 class ErtLeaderApplicationTests {
 
     @Test
