@@ -94,7 +94,7 @@ OPEN cur;
 read_loop: LOOP
     FETCH cur INTO qid;
     IF done THEN LEAVE read_loop; END IF;
-INSERT INTO `option` (`question_id`, `label`, `score`, `seq`)
+INSERT INTO `options` (`question_id`, `label`, `score`, `seq`)
 VALUES
     (qid, '非常不符合', 1, 1),
     (qid, '较不符合', 2, 2),
@@ -122,7 +122,7 @@ INSERT INTO `answer` (`assessment_id`, `question_id`, `option_id`)
 SELECT a.id, q.id, o.id
 FROM assessment a
          JOIN question q ON 1=1
-         JOIN `option` o ON o.question_id = q.id AND o.score = 3
+         JOIN `options` o ON o.question_id = q.id AND o.score = 3
 WHERE a.status = 'DONE';
 
 -- 8. 27 领导者画像（示例 8 条，其余可同理补齐）
@@ -172,6 +172,6 @@ VALUES
 -- ALTER TABLE user AUTO_INCREMENT = 10000;
 -- ALTER TABLE assessment AUTO_INCREMENT = 10000;
 -- ALTER TABLE question AUTO_INCREMENT = 10000;
--- ALTER TABLE `option` AUTO_INCREMENT = 100000;
+-- ALTER TABLE `options` AUTO_INCREMENT = 100000;
 
 SELECT '✅ 测试数据初始化完成，请开始接口/前端调试！' AS msg;

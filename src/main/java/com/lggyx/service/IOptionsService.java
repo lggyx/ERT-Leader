@@ -1,6 +1,6 @@
 package com.lggyx.service;
 
-import com.lggyx.pojo.entity.Option;
+import com.lggyx.pojo.entity.Options;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author lggyx
- * @since 2025-11-25
+ * @since 2025-12-02
  */
-public interface IOptionService extends IService<Option> {
+public interface IOptionsService extends IService<Options> {
 
 }

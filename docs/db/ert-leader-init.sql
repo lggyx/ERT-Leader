@@ -79,7 +79,7 @@ CREATE TABLE `question`
 ) ENGINE = InnoDB COMMENT ='测评题库';
 
 -- 6. 选项表（每题 5 级李克量表）
-CREATE TABLE `option`
+CREATE TABLE `options`
 (
     `id`          BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '选项主键',
     `question_id` BIGINT  NOT NULL COMMENT '所属题目',
@@ -105,7 +105,7 @@ CREATE TABLE `answer`
         FOREIGN KEY (`question_id`) REFERENCES `question` (`id`)
             ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT fk_an_o
-        FOREIGN KEY (`option_id`) REFERENCES `option` (`id`)
+        FOREIGN KEY (`option_id`) REFERENCES `options` (`id`)
             ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB COMMENT ='用户答题明细';
 

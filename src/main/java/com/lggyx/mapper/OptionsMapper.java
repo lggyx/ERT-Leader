@@ -1,6 +1,6 @@
 package com.lggyx.mapper;
 
-import com.lggyx.pojo.entity.Option;
+import com.lggyx.pojo.entity.Options;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -10,9 +10,9 @@ import org.apache.ibatis.annotations.Mapper;
  * </p>
  *
  * @author lggyx
- * @since 2025-11-25
+ * @since 2025-12-02
  */
 @Mapper
-public interface OptionMapper extends BaseMapper<Option> {
+public interface OptionsMapper extends BaseMapper<Options> {
 
 }

@@ -15,31 +15,31 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author lggyx
- * @since 2025-11-25
+ * @since 2025-12-02
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("option")
-@Schema(description="题目选项")
-public class Option implements Serializable {
+@TableName("options")
+@Schema(name="Options对象", description="题目选项")
+public class Options implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Schema(description= "选项主键")
+    @Schema(name = "选项主键")
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @Schema(description= "所属题目")
+    @Schema(name = "所属题目")
     private Long questionId;
 
-    @Schema(description= "选项文本（如'非常符合'）")
+    @Schema(name = "选项文本（如'非常符合'）")
     private String label;
 
-    @Schema(description= "分值（1-5）")
+    @Schema(name = "分值（1-5）")
     private Integer score;
 
-    @Schema(description= "选项顺序")
+    @Schema(name = "选项顺序")
     private Integer seq;
 
 
