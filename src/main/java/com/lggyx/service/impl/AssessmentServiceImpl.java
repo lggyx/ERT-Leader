@@ -2,7 +2,6 @@ package com.lggyx.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.lggyx.context.BaseContext;
-import com.lggyx.enumeration.ErrorCode;
 import com.lggyx.enumeration.SuccessCode;
 import com.lggyx.mapper.*;
 import com.lggyx.pojo.dto.AnswerDTO;
@@ -18,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 /**
@@ -41,6 +41,14 @@ public class AssessmentServiceImpl extends ServiceImpl<AssessmentMapper, Assessm
     private AnswerMapper answerMapper;
     @Resource
     private OptionsMapper optionMapper;
+    @Resource
+    private DimensionMapper dimensionMapper;
+    @Resource
+    private SubDimensionMapper subDimensionMapper;
+    @Resource
+    private ErtScoreDescMapper ertScoreDescMapper;
+    @Resource
+    private SubScoreActionMapper subScoreActionMapper;
 
     /**
      * 创建测评记录
@@ -193,7 +201,81 @@ public class AssessmentServiceImpl extends ServiceImpl<AssessmentMapper, Assessm
      */
     @Override
     public Result<CompleteVO> complete(Long assessmentId) {
-        return null;
+        //检查题目是否全部答完
+        int remainQuestions = Math.toIntExact(answerMapper.selectCount(Wrappers.<Answer>lambdaQuery()
+                .eq(Answer::getAssessmentId, assessmentId)
+                .eq(Answer::getAnswered, false)
+        ));
+        int eScore, rScore, tScore;
+        eScore = getScore('E', assessmentId);
+        rScore = getScore('R', assessmentId);
+        tScore = getScore('T', assessmentId);
+        log.info(" remainQuestions: {}", remainQuestions);
+        if (remainQuestions > 0) {
+            return Result.error("请完成所有题目");
+        } else {
+            int assessmentCount = assessmentMapper.update(
+                    Wrappers.<Assessment>lambdaUpdate()
+                            .eq(Assessment::getId, assessmentId)
+                            .set(Assessment::getStatus, "DONE")
+                            .set(Assessment::getEScore, eScore)
+                            .set(Assessment::getRScore, rScore)
+                            .set(Assessment::getTScore, tScore)
+                            .set(Assessment::getPortraitId, getPortraitId(getScore('E', assessmentId), getScore('R', assessmentId), getScore('T', assessmentId)))
+            );
+            if (assessmentCount > 0) {
+                CompleteVO completeVO = new CompleteVO();
+                completeVO.setAssessmentId(Math.toIntExact(assessmentId));
+                completeVO.setStatus("DONE");
+                completeVO.setEScore(eScore);
+                completeVO.setRScore(rScore);
+                completeVO.setTScore(tScore);
+                completeVO.setPortraitId(getPortraitId(completeVO.getEScore(), completeVO.getRScore(), completeVO.getTScore()));
+                completeVO.setPortraitDesc(getPortraitDesc(completeVO.getPortraitId()));
+                return Result.success(SuccessCode.SUCCESS, completeVO);
+            } else {
+                return Result.error("请选择正确的测评记录ID");
+            }
+        }
+    }
+
+    /**
+     * 获取得分
+     *
+     * @param dimCode      维度代码
+     * @param assessmentId 测评记录ID
+     * @return int
+     */
+    public int getScore(char dimCode, Long assessmentId) {
+        List<Answer> answerList = answerMapper.selectList(Wrappers.<Answer>lambdaQuery().eq(
+                Answer::getAssessmentId, assessmentId
+        ));
+        List<Answer> scoreList = answerList.stream()
+                .filter(answer -> {
+                    Question question = questionMapper.selectById(answer.getQuestionId());
+                    return question.getSubDimCode().charAt(0) == dimCode;
+                }).toList();
+        int score = scoreList.stream().mapToInt(answer -> {
+            Options options = optionMapper.selectById(answer.getOptionId());
+            return options.getScore();
+        }).sum();
+        // 根据题目数量计算标准化得分
+        int totalQuestions = answerList.size() / 3;
+        int maxScore = totalQuestions * 5; // 最高总分
+        double normalizedScore = (double) (score - totalQuestions) / (maxScore - totalQuestions);
+        // 标准化得分公式
+        return (int) (normalizedScore * 100);
+
+    }
+
+    //todo: 获取画像
+    public int getPortraitId(int eScore, int rScore, int tScore) {
+        return 1;
+    }
+
+    //todo: 获取画像描述
+    public String getPortraitDesc(int portraitId) {
+        return "";
     }
 
     /**
