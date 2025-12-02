@@ -24,7 +24,7 @@ public interface IAssessmentService extends IService<Assessment> {
 
     Result<List<GetQuestionsVO>> getQuestions(Long assessmentId);
 
-    Result<AnswerVO> answer(Long assessmentId, List<AnswerDTO> answerDTOs);
+    Result<AnswerVO> answer(Long assessmentId, AnswerDTO answerDTO);
 
     Result<CompleteVO> complete(Long assessmentId);
 

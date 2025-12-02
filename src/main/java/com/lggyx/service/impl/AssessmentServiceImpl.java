@@ -2,6 +2,8 @@ package com.lggyx.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.lggyx.context.BaseContext;
+import com.lggyx.enumeration.ErrorCode;
+import com.lggyx.enumeration.SuccessCode;
 import com.lggyx.mapper.*;
 import com.lggyx.pojo.dto.AnswerDTO;
 import com.lggyx.pojo.dto.CreateAssessmentDTO;
@@ -76,10 +78,11 @@ public class AssessmentServiceImpl extends ServiceImpl<AssessmentMapper, Assessm
             createAssessmentVO.setStatus("INIT");
             createAssessmentVO.setQuestionCount(type.equals("QUICK") ? 12 : 36);
             if (count > 0)
-                return Result.success(createAssessmentVO);
+                return Result.success(SuccessCode.SUCCESS, createAssessmentVO);
             else return Result.error("创建测评记录失败");
         } else return Result.error("请选择正确的测评类型");
     }
+
     /**
      * 插入答案
      *
@@ -130,13 +133,13 @@ public class AssessmentServiceImpl extends ServiceImpl<AssessmentMapper, Assessm
      */
     @Override
     public Result<List<GetQuestionsVO>> getQuestions(Long assessmentId) {
-        if (assessmentId == null|| assessmentId <= 0){
+        if (assessmentId == null || assessmentId <= 0) {
             return Result.error("请选择正确的测评记录ID");
         }
         //todo 需要添加查找不到的处理
         List<Answer> answerList = answerMapper.selectList(Wrappers.<Answer>lambdaQuery().eq(Answer::getAssessmentId,
                 assessmentId));
-        if (answerList.isEmpty()){
+        if (answerList.isEmpty()) {
             return Result.error("请选择正确的测评记录ID");
         }
         List<Question> getQuestionsList = questionMapper.selectList(Wrappers.<Question>lambdaQuery().in(Question::getId,
@@ -150,19 +153,36 @@ public class AssessmentServiceImpl extends ServiceImpl<AssessmentMapper, Assessm
             getQuestionsVO.setSeq(question.getSeq());
             return getQuestionsVO;
         }).collect(Collectors.toList());
-        return Result.success(getQuestionsVOList);
+        return Result.success(SuccessCode.SUCCESS, getQuestionsVOList);
     }
 
     /**
-     * 提交测评结果
+     * 提交答案
      *
      * @param assessmentId 测评记录ID
-     * @param answerDTOs   测评结果
+     * @param answerDTO    测评结果
      * @return Result<AnswerVO>
      */
     @Override
-    public Result<AnswerVO> answer(Long assessmentId, List<AnswerDTO> answerDTOs) {
-        return null;
+    public Result<AnswerVO> answer(Long assessmentId, AnswerDTO answerDTO) {
+        //根据assessmentId,questionId查找记录，如果有则更新，没有则插入并提示
+        int updateCount = answerMapper.update(
+                Wrappers.<Answer>lambdaUpdate()
+                        .eq(Answer::getAssessmentId, assessmentId)
+                        .eq(Answer::getQuestionId, answerDTO.getQuestionId())
+                        .set(Answer::getOptionId, answerDTO.getOptionId())
+                        .set(Answer::getAnswered, true)
+        );
+        AnswerVO answerVO = new AnswerVO();
+        answerVO.setAssessmentId(Math.toIntExact(assessmentId));
+        answerVO.setQuestionId(Math.toIntExact(answerDTO.getQuestionId()));
+        answerVO.setAnswered(updateCount > 0);
+        answerVO.setRemainQuestions(Math.toIntExact(
+                answerMapper.selectCount(Wrappers.<Answer>lambdaQuery()
+                        .eq(Answer::getAssessmentId, assessmentId)
+                        .eq(Answer::getAnswered, false)
+                )));
+        return Result.success(SuccessCode.SUCCESS, answerVO);
     }
 
     /**

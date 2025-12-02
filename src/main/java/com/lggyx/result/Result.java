@@ -1,6 +1,7 @@
 package com.lggyx.result;
 
 import com.lggyx.enumeration.ErrorCode;
+import com.lggyx.enumeration.SuccessCode;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -30,6 +31,14 @@ public class Result<T> implements Serializable {
     public static <T> Result<T> success(T object) {
         Result<T> result = new Result<>();
         result.code = 1;
+        result.msg = "操作成功";
+        result.data = object;
+        return result;
+    }
+    public static <T> Result<T> success(SuccessCode successCode, T object) {
+        Result<T> result = new Result<>();
+        result.code = successCode.getCode();
+        result.msg = successCode.getMsg();
         result.data = object;
         return result;
     }

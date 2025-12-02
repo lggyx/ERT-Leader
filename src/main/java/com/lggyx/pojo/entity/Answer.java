@@ -36,5 +36,7 @@ public class Answer implements Serializable {
     @Schema(description= "选项外键")
     private Long optionId;
 
+    @Schema(description= "是否已答题")
+    private Boolean answered;
 
 }

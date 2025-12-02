@@ -42,8 +42,8 @@ public class AssessmentController {
 
     @Operation(summary = "提交答案", description = "单题提交，支持返回剩余题数；重复提交同一题则覆盖答案")
     @PostMapping("/api/assessment/{assessmentId}/answer")
-    public Result<AnswerVO> answer(@PathVariable Long assessmentId, @RequestBody List<AnswerDTO> answerDTOs) {
-        return assessmentService.answer(assessmentId, answerDTOs);
+    public Result<AnswerVO> answer(@PathVariable Long assessmentId, @RequestBody AnswerDTO answerDTO) {
+        return assessmentService.answer(assessmentId, answerDTO);
     }
 
     @Operation(summary = "完成测评并计算得分", description = "必须答完所有题目才能调用，自动计算三大维度得分并匹配画像")

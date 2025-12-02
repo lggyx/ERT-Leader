@@ -33,6 +33,10 @@ logging:
     org:
       springframework:
         web: debug
+    com:
+      lggyx:
+        controller: debug
+
 
 # springdoc-openapi项目配置
 springdoc:

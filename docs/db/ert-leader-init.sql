@@ -97,6 +97,7 @@ CREATE TABLE `answer`
     `assessment_id` BIGINT NOT NULL COMMENT '测评记录外键',
     `question_id`   BIGINT NOT NULL COMMENT '题目外键',
     `option_id`     BIGINT NOT NULL COMMENT '选项外键',
+    `answered`      BOOLEAN DEFAULT FALSE COMMENT '是否已答题',
     PRIMARY KEY (`assessment_id`, `question_id`) COMMENT '同一测评同一题只能答一次',
     CONSTRAINT fk_an_a
         FOREIGN KEY (`assessment_id`) REFERENCES `assessment` (`id`)

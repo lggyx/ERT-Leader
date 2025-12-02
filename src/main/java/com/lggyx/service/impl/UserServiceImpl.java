@@ -2,6 +2,7 @@ package com.lggyx.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.lggyx.context.BaseContext;
+import com.lggyx.enumeration.SuccessCode;
 import com.lggyx.pojo.dto.LoginDTO;
 import com.lggyx.pojo.dto.UserDTO;
 import com.lggyx.pojo.entity.User;
@@ -52,7 +53,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         UserVO userVO = new UserVO();
         BeanUtils.copyProperties(user, userVO);
         if (count > 0)
-            return Result.success(userVO);
+            return Result.success(SuccessCode.SUCCESS,userVO);
         else return Result.error("用户注册失败");
     }
 
@@ -84,7 +85,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         userInfo.setName(user.getName());
         userInfo.setRole(user.getRole());
         loginVO.setUserInfo(userInfo);
-        return Result.success(loginVO);
+        return Result.success(SuccessCode.SUCCESS,loginVO);
     }
 
     /**
@@ -101,7 +102,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
                 .or()
                 .eq(User::getEmail, account));
         BeanUtils.copyProperties(user, currentUserVO);
-        return Result.success(currentUserVO);
+        return Result.success(SuccessCode.SUCCESS,currentUserVO);
     }
 
     /**
