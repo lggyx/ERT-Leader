@@ -19,7 +19,11 @@ import org.springframework.util.DigestUtils;
 
 import javax.crypto.SecretKey;
 import java.util.*;
-@SpringBootTest(properties = "spring.config.additional-location=file:D:/ERT-Leader/.env.properties")
+
+/** todo 测试类
+ *      此处的参数为项目路径下的.env.properties文件，启动前需设置参数
+ */
+@SpringBootTest(properties = "spring.config.additional-location=file:D:/WorkSpace/ERT-Leader/.env.properties")
 class ErtLeaderApplicationTests {
 
     @Test

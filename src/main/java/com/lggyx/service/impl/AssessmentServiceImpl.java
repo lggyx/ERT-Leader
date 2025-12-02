@@ -130,12 +130,17 @@ public class AssessmentServiceImpl extends ServiceImpl<AssessmentMapper, Assessm
      */
     @Override
     public Result<List<GetQuestionsVO>> getQuestions(Long assessmentId) {
-        List<Answer> answerList = answerMapper.selectList(Wrappers.<Answer>lambdaQuery().eq(Answer::getAssessmentId, assessmentId));
-        List<Question> getQuestionsList = questionMapper.selectList(Wrappers.<Question>lambdaQuery().in(
-                        Question::getId,
-                        answerList.stream().map(Answer::getQuestionId).collect(Collectors.toList())
-                )
-        );
+        if (assessmentId == null|| assessmentId <= 0){
+            return Result.error("请选择正确的测评记录ID");
+        }
+        //todo 需要添加查找不到的处理
+        List<Answer> answerList = answerMapper.selectList(Wrappers.<Answer>lambdaQuery().eq(Answer::getAssessmentId,
+                assessmentId));
+        if (answerList.isEmpty()){
+            return Result.error("请选择正确的测评记录ID");
+        }
+        List<Question> getQuestionsList = questionMapper.selectList(Wrappers.<Question>lambdaQuery().in(Question::getId,
+                answerList.stream().map(Answer::getQuestionId).collect(Collectors.toList())));
         List<GetQuestionsVO> getQuestionsVOList = getQuestionsList.stream().map(question -> {
             GetQuestionsVO getQuestionsVO = new GetQuestionsVO();
             getQuestionsVO.setQuestionId(Math.toIntExact(question.getId()));
