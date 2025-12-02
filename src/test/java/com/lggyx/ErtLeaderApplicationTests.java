@@ -1,27 +1,25 @@
 package com.lggyx;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.lggyx.constant.JwtClaimsConstant;
-import com.lggyx.mapper.QuestionMapper;
-import com.lggyx.pojo.entity.Question;
-import com.lggyx.pojo.vo.CurrentUserVO;
+import com.lggyx.mapper.AnswerMapper;
+import com.lggyx.pojo.entity.Answer;
 import com.lggyx.properties.JwtProperties;
-import com.lggyx.result.Result;
-import com.lggyx.service.impl.UserServiceImpl;
 import com.lggyx.utils.JwtUtil;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.DigestUtils;
 
 import javax.crypto.SecretKey;
 import java.util.*;
-
-@SpringBootTest
+@SpringBootTest(properties = "spring.config.additional-location=file:D:/ERT-Leader/.env.properties")
 class ErtLeaderApplicationTests {
 
     @Test
@@ -57,4 +55,16 @@ class ErtLeaderApplicationTests {
         System.out.println(jwtUtil.validateToken(token));
     }
 
+    @Resource
+    AnswerMapper answerMapper;
+    @Test
+    void testAnswerMapper() {
+        LambdaQueryWrapper<Answer> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Answer::getAssessmentId, 5L);
+
+        List<Answer> answerList = answerMapper.selectList(queryWrapper);
+
+        System.out.println(answerList);
+        System.out.println(answerList.size());
+    }
 }

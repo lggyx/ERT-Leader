@@ -67,5 +67,5 @@ knife4j:
 # jwt
 jwt:
   secretKey: 0HVD8Vw839g8PJDToUCFPnmWuXTK+BzAJG8CHuMgCT8=
-  ttl: 86400
+  ttl: 604800000
   token-name: token
