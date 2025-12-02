@@ -42,8 +42,7 @@ public class AuthController {
 
     @GetMapping("/api/auth/current")
     @Operation(summary = "获取当前用户信息")
-    public Result<CurrentUserVO> getCurrentUser(@RequestHeader("Authorization") String token) {
-        // 从请求头中获取token todo 除此之外也可以BaseContext.getCurrentAccount()获取当前用户
-        return userService.getCurrentUser(token.substring(7));
+    public Result<CurrentUserVO> getCurrentUser() {
+        return userService.getCurrentUser();
     }
 }

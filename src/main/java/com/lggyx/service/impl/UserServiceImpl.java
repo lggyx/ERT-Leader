@@ -1,6 +1,7 @@
 package com.lggyx.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.lggyx.context.BaseContext;
 import com.lggyx.pojo.dto.LoginDTO;
 import com.lggyx.pojo.dto.UserDTO;
 import com.lggyx.pojo.entity.User;
@@ -77,6 +78,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         LoginVO loginVO = new LoginVO();
         JwtUtil jwtUtil = new JwtUtil(jwtProperties);
         loginVO.setToken(jwtUtil.generateToken(loginDTO.getAccount()));
+        loginVO.setExpiresIn(String.valueOf(jwtProperties.getTtl()));
         LoginVO.UserInfo userInfo = new LoginVO.UserInfo();
         userInfo.setId(user.getId());
         userInfo.setName(user.getName());
@@ -91,9 +93,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      * @return Result
      */
     @Override
-    public Result<CurrentUserVO> getCurrentUser(String token) {
-        JwtUtil jwtUtil = new JwtUtil(jwtProperties);
-        String account = jwtUtil.getAccountFromToken(token);
+    public Result<CurrentUserVO> getCurrentUser() {
+        String account = BaseContext.getCurrentAccount();
         CurrentUserVO currentUserVO = new CurrentUserVO();
         User user = userMapper.selectOne(Wrappers.<User>lambdaQuery()
                 .eq(User::getMobile, account)
