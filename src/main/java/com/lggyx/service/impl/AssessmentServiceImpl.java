@@ -159,6 +159,15 @@ public class AssessmentServiceImpl extends ServiceImpl<AssessmentMapper, Assessm
             getQuestionsVO.setSubDimCode(question.getSubDimCode());
             getQuestionsVO.setContent(question.getContent());
             getQuestionsVO.setSeq(question.getSeq());
+            getQuestionsVO.setOptions(optionMapper.selectList(
+                    Wrappers.<Options>lambdaQuery().eq(Options::getQuestionId, question.getId())).stream().map(option -> {
+                        GetQuestionsVO.Options options = new GetQuestionsVO.Options();
+                        options.setOptionId(Math.toIntExact(option.getId()));
+                        options.setLabel(option.getLabel());
+                        options.setScore(option.getScore());
+                        options.setSeq(option.getSeq());
+                        return options;
+            }).collect(Collectors.toList()));
             return getQuestionsVO;
         }).collect(Collectors.toList());
         return Result.success(SuccessCode.SUCCESS, getQuestionsVOList);

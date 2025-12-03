@@ -1,0 +1,2210 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8912",
+      "description": "Generated server url"
+    }
+  ],
+  "tags": [
+    {
+      "name": "维度配置管理",
+      "description": "维度管理"
+    },
+    {
+      "name": "题目管理",
+      "description": "题目管理"
+    },
+    {
+      "name": "认证与用户模块",
+      "description": "测评用户档案"
+    },
+    {
+      "name": "测评流程模块",
+      "description": "用户测评记录"
+    },
+    {
+      "name": "27项领导力画像配置",
+      "description": "画像管理"
+    },
+    {
+      "name": "用户管理",
+      "description": "用户管理"
+    },
+    {
+      "name": "系统配置管理",
+      "description": "联系信息管理"
+    },
+    {
+      "name": "子维度配置管理",
+      "description": "维度管理"
+    },
+    {
+      "name": "子维度行动方案管理",
+      "description": "子维度得分行动方案管理"
+    },
+    {
+      "name": "ERT得分区间管理",
+      "description": "维度得分区间解释管理"
+    }
+  ],
+  "paths": {
+    "/api/admin/user/{userId}/status": {
+      "put": {
+        "tags": [
+          "用户管理"
+        ],
+        "summary": "启用/禁用用户",
+        "operationId": "updateStatus",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/user/{userId}/role": {
+      "put": {
+        "tags": [
+          "用户管理"
+        ],
+        "summary": "设置用户角色",
+        "operationId": "updateRole",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "role",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/sub-score-action/{id}": {
+      "put": {
+        "tags": [
+          "子维度行动方案管理"
+        ],
+        "summary": "更新行动方案",
+        "operationId": "update",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSubScoreActionDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/sub-dimension/{code}": {
+      "put": {
+        "tags": [
+          "子维度配置管理"
+        ],
+        "summary": "更新子维度",
+        "operationId": "update_1",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubDimensionDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/question/{questionId}": {
+      "put": {
+        "tags": [
+          "题目管理"
+        ],
+        "summary": "更新题目",
+        "operationId": "update_2",
+        "parameters": [
+          {
+            "name": "questionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateQuestionDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "题目管理"
+        ],
+        "summary": "删除题目",
+        "description": "级联删除关联的选项和答案数据",
+        "operationId": "delete",
+        "parameters": [
+          {
+            "name": "questionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/portrait/{id}": {
+      "put": {
+        "tags": [
+          "27项领导力画像配置"
+        ],
+        "summary": "更新画像描述",
+        "operationId": "update_3",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePortraitDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/ert-score-desc/{id}": {
+      "put": {
+        "tags": [
+          "ERT得分区间管理"
+        ],
+        "summary": "更新得分区间描述",
+        "operationId": "update_4",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateErtScoreDescDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/dimension/{code}": {
+      "put": {
+        "tags": [
+          "维度配置管理"
+        ],
+        "summary": "更新维度描述",
+        "operationId": "updateDesc",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "dimension",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/DimensionDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/contact": {
+      "get": {
+        "tags": [
+          "系统配置管理"
+        ],
+        "summary": "获取联系信息",
+        "operationId": "getContact",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultContactVO"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "系统配置管理"
+        ],
+        "summary": "更新联系信息",
+        "operationId": "updateContact",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContactDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/register": {
+      "post": {
+        "tags": [
+          "认证与用户模块"
+        ],
+        "summary": "用户注册",
+        "description": "新用户注册，密码需满足8位以上含字母数字",
+        "operationId": "register",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultUserVO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "tags": [
+          "认证与用户模块"
+        ],
+        "summary": "用户登录",
+        "description": "登录成功后返回JWT token，有效期待定",
+        "operationId": "login",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultLoginVO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/assessment/{assessmentId}/questions": {
+      "post": {
+        "tags": [
+          "测评流程模块"
+        ],
+        "summary": "获取测评题目",
+        "operationId": "getQuestions",
+        "parameters": [
+          {
+            "name": "assessmentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultListGetQuestionsVO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/assessment/{assessmentId}/complete": {
+      "post": {
+        "tags": [
+          "测评流程模块"
+        ],
+        "summary": "完成测评并计算得分",
+        "description": "必须答完所有题目才能调用，自动计算三大维度得分并匹配画像",
+        "operationId": "complete",
+        "parameters": [
+          {
+            "name": "assessmentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultCompleteVO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/assessment/{assessmentId}/answer": {
+      "post": {
+        "tags": [
+          "测评流程模块"
+        ],
+        "summary": "提交答案",
+        "description": "单题提交，支持返回剩余题数；重复提交同一题则覆盖答案",
+        "operationId": "answer",
+        "parameters": [
+          {
+            "name": "assessmentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnswerDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultAnswerVO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/assessment/create": {
+      "post": {
+        "tags": [
+          "测评流程模块"
+        ],
+        "summary": "创建测评记录",
+        "description": "创建新的测评任务，极速测评随机抽取每子维度1题",
+        "operationId": "create",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAssessmentDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultCreateAssessmentVO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/question": {
+      "post": {
+        "tags": [
+          "题目管理"
+        ],
+        "summary": "创建题目",
+        "operationId": "create_1",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateQuestionDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultCreateQuestionVO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/current": {
+      "get": {
+        "tags": [
+          "认证与用户模块"
+        ],
+        "summary": "获取当前用户信息",
+        "operationId": "getCurrentUser",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultCurrentUserVO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/assessment/{assessmentId}/result": {
+      "get": {
+        "tags": [
+          "测评流程模块"
+        ],
+        "summary": "获取测评结果详情",
+        "operationId": "result",
+        "parameters": [
+          {
+            "name": "assessmentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultResultVO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/assessment/history": {
+      "get": {
+        "tags": [
+          "测评流程模块"
+        ],
+        "summary": "查询我的测评历史",
+        "operationId": "getHistory",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultPageResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/user/page": {
+      "get": {
+        "tags": [
+          "用户管理"
+        ],
+        "summary": "分页查询用户列表",
+        "operationId": "page",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "role",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultPageResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/sub-score-action/list": {
+      "get": {
+        "tags": [
+          "子维度行动方案管理"
+        ],
+        "summary": "查询行动方案",
+        "operationId": "getList",
+        "parameters": [
+          {
+            "name": "subDimCode",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultListSubScoreActionVO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/sub-dimension/list": {
+      "get": {
+        "tags": [
+          "子维度配置管理"
+        ],
+        "summary": "查询子维度列表",
+        "operationId": "getList_1",
+        "parameters": [
+          {
+            "name": "dimensionCode",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultListSubDimensionVO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/question/page": {
+      "get": {
+        "tags": [
+          "题目管理"
+        ],
+        "summary": "分页查询题目",
+        "operationId": "page_1",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "subDimCode",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultPageResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/portrait/list": {
+      "get": {
+        "tags": [
+          "27项领导力画像配置"
+        ],
+        "summary": "查询画像列表",
+        "operationId": "getList_2",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultListPortraitVO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/ert-score-desc/list": {
+      "get": {
+        "tags": [
+          "ERT得分区间管理"
+        ],
+        "summary": "查询得分区间",
+        "operationId": "getList_3",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultListErtScoreDescVO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/dimension/list": {
+      "get": {
+        "tags": [
+          "维度配置管理"
+        ],
+        "summary": "查询三大能力维度",
+        "operationId": "list",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultListDimensionVO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/assessment/page": {
+      "get": {
+        "tags": [
+          "用户管理"
+        ],
+        "summary": "管理员查询所有测评记录",
+        "operationId": "assessmentPage",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultPageResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ResultVoid": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "状态码",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "错误信息"
+          },
+          "data": {
+            "type": "object",
+            "description": "数据"
+          }
+        }
+      },
+      "UpdateSubScoreActionDTO": {
+        "type": "object",
+        "properties": {
+          "minScore": {
+            "type": "integer",
+            "description": "区间下限",
+            "format": "int32"
+          },
+          "maxScore": {
+            "type": "integer",
+            "description": "区间上限",
+            "format": "int32"
+          },
+          "actionPlan": {
+            "type": "string",
+            "description": "可执行的具体行动方案（富文本）"
+          }
+        }
+      },
+      "SubDimensionDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "子维度名称"
+          },
+          "description": {
+            "type": "string",
+            "description": "子维度说明"
+          }
+        }
+      },
+      "CreateQuestionDTO": {
+        "type": "object",
+        "properties": {
+          "subDimCode": {
+            "type": "string",
+            "description": "子维度编码"
+          },
+          "content": {
+            "type": "string",
+            "description": "题干"
+          },
+          "seq": {
+            "type": "integer",
+            "description": "排序",
+            "format": "int32"
+          }
+        }
+      },
+      "UpdatePortraitDTO": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "description": "画像描述（富文本）"
+          }
+        }
+      },
+      "UpdateErtScoreDescDTO": {
+        "type": "object",
+        "properties": {
+          "minScore": {
+            "type": "integer",
+            "description": "区间下限（含）",
+            "format": "int32"
+          },
+          "maxScore": {
+            "type": "integer",
+            "description": "区间上限（含）",
+            "format": "int32"
+          },
+          "description": {
+            "type": "string",
+            "description": "区间文字描述"
+          }
+        }
+      },
+      "DimensionDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "维度名称"
+          },
+          "description": {
+            "type": "string",
+            "description": "维度说明（富文本）"
+          }
+        }
+      },
+      "ContactDTO": {
+        "type": "object",
+        "properties": {
+          "company": {
+            "type": "string",
+            "description": "公司名称"
+          },
+          "phone": {
+            "type": "string",
+            "description": "联系电话"
+          },
+          "email": {
+            "type": "string",
+            "description": "联系邮箱"
+          },
+          "address": {
+            "type": "string",
+            "description": "办公地址"
+          }
+        }
+      },
+      "UserDTO": {
+        "type": "object",
+        "properties": {
+          "mobile": {
+            "type": "string",
+            "description": "手机号（唯一）"
+          },
+          "email": {
+            "type": "string",
+            "description": "邮箱（唯一）"
+          },
+          "password": {
+            "type": "string",
+            "description": "密码（bcrypt 加密）"
+          },
+          "name": {
+            "type": "string",
+            "description": "真实姓名"
+          },
+          "gender": {
+            "type": "integer",
+            "description": "性别：0 未知，1 男，2 女",
+            "format": "int32"
+          },
+          "birthDate": {
+            "type": "string",
+            "description": "出生日期",
+            "format": "date"
+          }
+        },
+        "description": "用户信息DTO"
+      },
+      "ResultUserVO": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "状态码",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "错误信息"
+          },
+          "data": {
+            "$ref": "#/components/schemas/UserVO"
+          }
+        }
+      },
+      "UserVO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "用户主键",
+            "format": "int64"
+          },
+          "mobile": {
+            "type": "string",
+            "description": "手机号（唯一）"
+          },
+          "email": {
+            "type": "string",
+            "description": "邮箱（唯一）"
+          },
+          "name": {
+            "type": "string",
+            "description": "真实姓名"
+          },
+          "role": {
+            "type": "string",
+            "description": "角色：USER/INST_ADMIN/SUPER_ADMIN"
+          }
+        },
+        "description": "数据"
+      },
+      "LoginDTO": {
+        "type": "object",
+        "properties": {
+          "account": {
+            "type": "string",
+            "description": "账号"
+          },
+          "password": {
+            "type": "string",
+            "description": "密码"
+          }
+        }
+      },
+      "LoginVO": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "JWT token"
+          },
+          "expiresIn": {
+            "type": "string",
+            "description": "token过期时间"
+          },
+          "userInfo": {
+            "$ref": "#/components/schemas/UserInfo"
+          }
+        },
+        "description": "数据"
+      },
+      "ResultLoginVO": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "状态码",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "错误信息"
+          },
+          "data": {
+            "$ref": "#/components/schemas/LoginVO"
+          }
+        }
+      },
+      "UserInfo": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "用户ID",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string",
+            "description": "用户名"
+          },
+          "role": {
+            "type": "string",
+            "description": "用户角色"
+          }
+        },
+        "description": "用户信息"
+      },
+      "GetQuestionsVO": {
+        "type": "object",
+        "properties": {
+          "questionId": {
+            "type": "integer",
+            "description": "问题ID",
+            "format": "int32"
+          },
+          "subDimCode": {
+            "type": "string",
+            "description": "子维度代码"
+          },
+          "subDimName": {
+            "type": "string",
+            "description": "子维度名称"
+          },
+          "content": {
+            "type": "string",
+            "description": "问题内容"
+          },
+          "seq": {
+            "type": "integer",
+            "description": "问题顺序",
+            "format": "int32"
+          },
+          "options": {
+            "type": "array",
+            "description": "问题选项",
+            "items": {
+              "$ref": "#/components/schemas/Options"
+            }
+          }
+        },
+        "description": "数据"
+      },
+      "Options": {
+        "type": "object",
+        "properties": {
+          "optionId": {
+            "type": "integer",
+            "description": "选项ID",
+            "format": "int32"
+          },
+          "label": {
+            "type": "string",
+            "description": "选项内容"
+          },
+          "score": {
+            "type": "integer",
+            "description": "选项分数",
+            "format": "int32"
+          },
+          "seq": {
+            "type": "integer",
+            "description": "选项顺序",
+            "format": "int32"
+          }
+        },
+        "description": "问题选项"
+      },
+      "ResultListGetQuestionsVO": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "状态码",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "错误信息"
+          },
+          "data": {
+            "type": "array",
+            "description": "数据",
+            "items": {
+              "$ref": "#/components/schemas/GetQuestionsVO"
+            }
+          }
+        }
+      },
+      "CompleteVO": {
+        "type": "object",
+        "properties": {
+          "assessmentId": {
+            "type": "integer",
+            "description": "测评记录主键",
+            "format": "int32"
+          },
+          "status": {
+            "type": "string",
+            "description": "测评状态：INIT-进行中, DONE-已完成"
+          },
+          "portraitId": {
+            "type": "integer",
+            "description": "测评得分",
+            "format": "int32"
+          },
+          "portraitDesc": {
+            "type": "string",
+            "description": "测评报告"
+          },
+          "escore": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "rscore": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tscore": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "description": "数据"
+      },
+      "ResultCompleteVO": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "状态码",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "错误信息"
+          },
+          "data": {
+            "$ref": "#/components/schemas/CompleteVO"
+          }
+        }
+      },
+      "AnswerDTO": {
+        "type": "object",
+        "properties": {
+          "questionId": {
+            "type": "integer",
+            "description": "问题ID",
+            "format": "int32"
+          },
+          "optionId": {
+            "type": "integer",
+            "description": "选项ID",
+            "format": "int32"
+          }
+        }
+      },
+      "AnswerVO": {
+        "type": "object",
+        "properties": {
+          "assessmentId": {
+            "type": "integer",
+            "description": "测评记录ID",
+            "format": "int32"
+          },
+          "questionId": {
+            "type": "integer",
+            "description": "问题ID",
+            "format": "int32"
+          },
+          "answered": {
+            "type": "boolean",
+            "description": "选项ID"
+          },
+          "remainQuestions": {
+            "type": "integer",
+            "description": "剩余问题数量",
+            "format": "int32"
+          }
+        },
+        "description": "数据"
+      },
+      "ResultAnswerVO": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "状态码",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "错误信息"
+          },
+          "data": {
+            "$ref": "#/components/schemas/AnswerVO"
+          }
+        }
+      },
+      "CreateAssessmentDTO": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "测评类型：QUICK-极速测评(12题), FULL-完整测评(36题)"
+          }
+        }
+      },
+      "CreateAssessmentVO": {
+        "type": "object",
+        "properties": {
+          "assessmentId": {
+            "type": "integer",
+            "description": "测评记录主键",
+            "format": "int64"
+          },
+          "type": {
+            "type": "string",
+            "description": "测评类型：QUICK-极速测评(12题), FULL-完整测评(36题)"
+          },
+          "status": {
+            "type": "string",
+            "description": "测评状态：INIT-进行中, DONE-已完成"
+          },
+          "questionCount": {
+            "type": "integer",
+            "description": "测评题目数量",
+            "format": "int32"
+          }
+        },
+        "description": "数据"
+      },
+      "ResultCreateAssessmentVO": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "状态码",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "错误信息"
+          },
+          "data": {
+            "$ref": "#/components/schemas/CreateAssessmentVO"
+          }
+        }
+      },
+      "CreateQuestionVO": {
+        "type": "object",
+        "properties": {
+          "questionId": {
+            "type": "integer",
+            "description": "问题ID",
+            "format": "int64"
+          }
+        },
+        "description": "数据"
+      },
+      "ResultCreateQuestionVO": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "状态码",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "错误信息"
+          },
+          "data": {
+            "$ref": "#/components/schemas/CreateQuestionVO"
+          }
+        }
+      },
+      "CurrentUserVO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "用户主键",
+            "format": "int64"
+          },
+          "mobile": {
+            "type": "string",
+            "description": "手机号（唯一）"
+          },
+          "email": {
+            "type": "string",
+            "description": "邮箱（唯一）"
+          },
+          "name": {
+            "type": "string",
+            "description": "真实姓名"
+          },
+          "gender": {
+            "type": "integer",
+            "description": "性别：0 未知，1 男，2 女",
+            "format": "int32"
+          },
+          "birthDate": {
+            "type": "string",
+            "description": "出生日期",
+            "format": "date"
+          },
+          "status": {
+            "type": "integer",
+            "description": "账号状态：0 禁用，1 启用",
+            "format": "int32"
+          },
+          "role": {
+            "type": "string",
+            "description": "角色：USER/INST_ADMIN/SUPER_ADMIN"
+          }
+        },
+        "description": "数据"
+      },
+      "ResultCurrentUserVO": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "状态码",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "错误信息"
+          },
+          "data": {
+            "$ref": "#/components/schemas/CurrentUserVO"
+          }
+        }
+      },
+      "DimensionScores": {
+        "type": "object",
+        "properties": {
+          "e": {
+            "$ref": "#/components/schemas/E"
+          },
+          "r": {
+            "$ref": "#/components/schemas/R"
+          },
+          "t": {
+            "$ref": "#/components/schemas/T"
+          }
+        },
+        "description": "测评得分"
+      },
+      "E": {
+        "type": "object",
+        "properties": {
+          "score": {
+            "type": "integer",
+            "description": "测评得分",
+            "format": "int32"
+          },
+          "level": {
+            "type": "string",
+            "description": "测评得分等级"
+          },
+          "description": {
+            "type": "string",
+            "description": "测评得分描述"
+          }
+        }
+      },
+      "PortraitVO": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "测评画像编码"
+          },
+          "description": {
+            "type": "string",
+            "description": "测评画像名称"
+          }
+        },
+        "description": "测评画像"
+      },
+      "R": {
+        "type": "object",
+        "properties": {
+          "score": {
+            "type": "integer",
+            "description": "测评得分",
+            "format": "int32"
+          },
+          "level": {
+            "type": "string",
+            "description": "测评得分等级"
+          },
+          "description": {
+            "type": "string",
+            "description": "测评得分描述"
+          }
+        }
+      },
+      "ResultResultVO": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "状态码",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "错误信息"
+          },
+          "data": {
+            "$ref": "#/components/schemas/ResultVO"
+          }
+        }
+      },
+      "ResultVO": {
+        "type": "object",
+        "properties": {
+          "assessmentId": {
+            "type": "integer",
+            "description": "测评ID",
+            "format": "int32"
+          },
+          "userName": {
+            "type": "string",
+            "description": "用户ID"
+          },
+          "type": {
+            "type": "string",
+            "description": "测评类型"
+          },
+          "completedAt": {
+            "type": "string",
+            "description": "测评完成时间",
+            "format": "date-time"
+          },
+          "dimensionScores": {
+            "$ref": "#/components/schemas/DimensionScores"
+          },
+          "portrait": {
+            "$ref": "#/components/schemas/PortraitVO"
+          },
+          "subDimensionScores": {
+            "type": "array",
+            "description": "测评子维度得分",
+            "items": {
+              "$ref": "#/components/schemas/SubDimensionScores"
+            }
+          }
+        },
+        "description": "数据"
+      },
+      "SubDimensionScores": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "测评子维度编码"
+          },
+          "name": {
+            "type": "string",
+            "description": "测评子维度名称"
+          },
+          "score": {
+            "type": "integer",
+            "description": "测评得分",
+            "format": "int32"
+          },
+          "dimension": {
+            "type": "string",
+            "description": "测评得分等级"
+          },
+          "actionPlan": {
+            "type": "string",
+            "description": "测评得分描述"
+          }
+        },
+        "description": "测评子维度得分"
+      },
+      "T": {
+        "type": "object",
+        "properties": {
+          "score": {
+            "type": "integer",
+            "description": "测评得分",
+            "format": "int32"
+          },
+          "level": {
+            "type": "string",
+            "description": "测评得分等级"
+          },
+          "description": {
+            "type": "string",
+            "description": "测评得分描述"
+          }
+        }
+      },
+      "PageResult": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer",
+            "description": "总记录数",
+            "format": "int64",
+            "refType": null
+          },
+          "records": {
+            "type": "array",
+            "description": "当前页数据",
+            "items": {
+              "type": "object",
+              "description": "当前页数据"
+            },
+            "refType": "object"
+          }
+        },
+        "description": "数据"
+      },
+      "ResultPageResult": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "状态码",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "错误信息"
+          },
+          "data": {
+            "$ref": "#/components/schemas/PageResult"
+          }
+        }
+      },
+      "ResultListSubScoreActionVO": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "状态码",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "错误信息"
+          },
+          "data": {
+            "type": "array",
+            "description": "数据",
+            "items": {
+              "$ref": "#/components/schemas/SubScoreActionVO"
+            }
+          }
+        }
+      },
+      "SubScoreActionVO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "主键",
+            "format": "int32"
+          },
+          "subDimCode": {
+            "type": "string",
+            "description": "子维度编码"
+          },
+          "minScore": {
+            "type": "integer",
+            "description": "区间下限",
+            "format": "int32"
+          },
+          "maxScore": {
+            "type": "integer",
+            "description": "区间上限",
+            "format": "int32"
+          },
+          "actionPlan": {
+            "type": "string",
+            "description": "可执行的具体行动方案（富文本）"
+          }
+        },
+        "description": "数据"
+      },
+      "ResultListSubDimensionVO": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "状态码",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "错误信息"
+          },
+          "data": {
+            "type": "array",
+            "description": "数据",
+            "items": {
+              "$ref": "#/components/schemas/SubDimensionVO"
+            }
+          }
+        }
+      },
+      "SubDimensionVO": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "子维度编码，如 E1"
+          },
+          "dimensionCode": {
+            "type": "string",
+            "description": "所属大维度"
+          },
+          "name": {
+            "type": "string",
+            "description": "子维度名称"
+          },
+          "description": {
+            "type": "string",
+            "description": "子维度说明"
+          }
+        },
+        "description": "数据"
+      },
+      "ResultListPortraitVO": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "状态码",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "错误信息"
+          },
+          "data": {
+            "type": "array",
+            "description": "数据",
+            "items": {
+              "$ref": "#/components/schemas/PortraitVO"
+            }
+          }
+        }
+      },
+      "ErtScoreDescVO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "主键",
+            "format": "int32"
+          },
+          "dimensionCode": {
+            "type": "string",
+            "description": "维度 E/R/T"
+          },
+          "minScore": {
+            "type": "integer",
+            "description": "区间下限（含）",
+            "format": "int32"
+          },
+          "maxScore": {
+            "type": "integer",
+            "description": "区间上限（含）",
+            "format": "int32"
+          },
+          "description": {
+            "type": "string",
+            "description": "区间文字描述"
+          }
+        },
+        "description": "数据"
+      },
+      "ResultListErtScoreDescVO": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "状态码",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "错误信息"
+          },
+          "data": {
+            "type": "array",
+            "description": "数据",
+            "items": {
+              "$ref": "#/components/schemas/ErtScoreDescVO"
+            }
+          }
+        }
+      },
+      "DimensionVO": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "维度编码"
+          },
+          "name": {
+            "type": "string",
+            "description": "维度名称"
+          },
+          "description": {
+            "type": "string",
+            "description": "维度描述"
+          },
+          "subDimensionCount": {
+            "type": "integer",
+            "description": "子维度数量",
+            "format": "int32"
+          }
+        },
+        "description": "数据"
+      },
+      "ResultListDimensionVO": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "状态码",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "错误信息"
+          },
+          "data": {
+            "type": "array",
+            "description": "数据",
+            "items": {
+              "$ref": "#/components/schemas/DimensionVO"
+            }
+          }
+        }
+      },
+      "ContactVO": {
+        "type": "object",
+        "properties": {
+          "company": {
+            "type": "string",
+            "description": "公司名称"
+          },
+          "phone": {
+            "type": "string",
+            "description": "联系电话"
+          },
+          "email": {
+            "type": "string",
+            "description": "联系邮箱"
+          },
+          "address": {
+            "type": "string",
+            "description": "办公地址"
+          }
+        },
+        "description": "数据"
+      },
+      "ResultContactVO": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "状态码",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "错误信息"
+          },
+          "data": {
+            "$ref": "#/components/schemas/ContactVO"
+          }
+        }
+      }
+    }
+  },
+  "x-openapi": {
+    "x-setting": {
+      "customCode": 200,
+      "language": "zh-CN",
+      "enableSwaggerModels": true,
+      "swaggerModelName": "Swagger Models",
+      "enableReloadCacheParameter": false,
+      "enableAfterScript": true,
+      "enableDocumentManage": true,
+      "enableVersion": false,
+      "enableRequestCache": true,
+      "enableFilterMultipartApis": false,
+      "enableFilterMultipartApiMethodType": "POST",
+      "enableHost": false,
+      "enableHostText": "",
+      "enableDynamicParameter": false,
+      "enableDebug": true,
+      "enableFooter": true,
+      "enableFooterCustom": false,
+      "enableSearch": true,
+      "enableOpenApi": true,
+      "enableHomeCustom": false,
+      "enableGroup": true,
+      "enableResponseCode": true
+    },
+    "x-markdownFiles": [
+      {
+        "group": "default",
+        "name": "开发文档",
+        "children": [
+          {
+            "title": "v1.0_开发需求",
+            "content": "# v1.0_开发需求\r\n\r\n## 开发需求\r\n\r\n| 功能大类               | 子功能                          | 说明/入口                                                    |\r\n| ---------------------- | ------------------------------- | ------------------------------------------------------------ |\r\n| 门户页                 | 1. 门户页（移动端、PC端）       | 统一首页                                                     |\r\n|                        | 2. 用户登录                     | 右上角【登录】按钮                                           |\r\n|                        | 3. 注册                         | 右上角【注册】按钮                                           |\r\n|                        | 4. 开始测评入口                 | 含以下三项                                                   |\r\n|                        | 4.1 极速测评                    | 气泡框                                                       |\r\n|                        | 4.2 完整测评                    | 气泡框                                                       |\r\n|                        | 4.3 我的历史测评报告            | 气泡框                                                       |\r\n| 登录页                 | 1. 收集测评用户个人信息         | Web 表单                                                     |\r\n| 答题页面               | 1. 展示题目内容                 |                                                              |\r\n|                        | 2. 收集用户答案                 |                                                              |\r\n| 测评结果页             | 1. 展示测评整体结果             |                                                              |\r\n|                        | 2. 总体定位                     | 领导力画像及三大能力图谱，按总得分展示分析                   |\r\n|                        | 3. 子维度详情                   | 12 项能力强弱分析，按实际得分详细展示                        |\r\n|                        | 4. 改善建议                     | 专属行动方案                                                 |\r\n|                        | 5. 保存结果                     | 将测评结果保存为本地图片                                     |\r\n| 特殊项                 | 1. 多端适配                     | 适配移动端，自适应 PC 端                                     |\r\n| 用户管理               | 1. 可用性管理                   | 启用/禁用所有用户                                            |\r\n|                        | 2. 配置机构/学校管理员          |                                                              |\r\n| 分类题目管理           | 1. 题目内容的增、删、改、查     |                                                              |\r\n| 三大能力配置管理       | 1. 展示并可编辑三大能力信息     |                                                              |\r\n| 子能力配置管理         | 1. 展示并可编辑 12 项子能力信息 |                                                              |\r\n| 27 项领导力画像        | 1. 配置描述                     | 按三大能力得分组合（如高高中、低中高）配置 27 项总体定位描述 |\r\n| ERT 得分管理           | 1. 得分区间分析                 | 配置 E、R、T 三大能力得分对应区间的分析内容展示              |\r\n| 子项得分及行动方案管理 | 1. 得分区间分析                 | 配置 12 项子能力得分对应区间的分析内容展示                   |\r\n|                        | 2. 行动方案及建议               | 用于测评结果页“专属行动方案”展示                             |\r\n| 历史测评结果页         | 1. 查看所有用户历史测评结果     |                                                              |\r\n|                        | 2. 管理员保存结果               | 保存时添加公司名称、联系方式等，以图片形式保存至本地         |\r\n| 联系我们配置项         | 1. 维护公司及联系方式信息       |                                                              |\r\n| 门户页内容配置项       | 可配置标题                      | 1. 了解 ERT<br>2. 常见问题<br>3. 隐私政策<br>4. 使用条款<br>5. 应用指南 |\r\n\r\n## 数据库详解\r\n\r\n```mermaid\r\n%% ---------- ERT 建表依赖时序图 ----------\r\nflowchart TD\r\n    %% 节点定义（ID 英文，label 中文）\r\n    D1[dimension<br>三大能力维度]\r\n    U1[user<br>用户表]\r\n    SD[sub_dimension<br>12项子能力]\r\n    ERT[ert_score_desc<br>维度得分区间]\r\n    A[assessment<br>测评记录]\r\n    Q[question<br>题目]\r\n    SSA[sub_score_action<br>子维度行动方案]\r\n    O[option<br>选项]\r\n    AN[answer<br>答题明细]\r\n    P[portrait<br>27画像]\r\n    C[contact<br>联系信息]\r\n\r\n    %% 第一步：无依赖\r\n    subgraph step1[Step-1 无依赖]\r\n        D1\r\n        U1\r\n    end\r\n\r\n    %% 第二步：依赖 dimension\r\n    subgraph step2[Step-2 依赖 dimension]\r\n        SD\r\n        ERT\r\n    end\r\n\r\n    %% 第三步：依赖 user\r\n    subgraph step3[Step-3 依赖 user]\r\n        A\r\n    end\r\n\r\n    %% 第四步：依赖 sub_dimension\r\n    subgraph step4[Step-4 依赖 sub_dimension]\r\n        Q\r\n        SSA\r\n    end\r\n\r\n    %% 第五步：依赖 question\r\n    subgraph step5[Step-5 依赖 question]\r\n        O\r\n    end\r\n\r\n    %% 第六步：依赖多表\r\n    subgraph step6[Step-6 依赖 assessment+question+option]\r\n        AN\r\n    end\r\n\r\n    %% 第七步：无外部依赖\r\n    subgraph step7[Step-7 无外部依赖]\r\n        P\r\n        C\r\n    end\r\n\r\n    %% 依赖箭头\r\n    D1 --> SD\r\n    D1 --> ERT\r\n    U1 --> A\r\n    SD --> Q\r\n    SD --> SSA\r\n    Q --> O\r\n    A --> AN\r\n    Q --> AN\r\n    O --> AN\r\n```"
+          },
+          {
+            "title": "v1.1_接口开发文档",
+            "content": "# v1.1_接口开发文档\r\n\r\n# ERT领导力测评系统 · 后端接口开发文档\r\n\r\n## 一、全局约定\r\n\r\n### 1.1 统一返回格式\r\n所有接口均使用 `Result<T>` 封装，结构如下：\r\n```json\r\n{\r\n  \"code\": 1,      // 1成功，0失败，-1未登录\r\n  \"msg\": \"错误信息\",  // code≠1时返回\r\n  \"data\": {}     // 具体业务数据\r\n}\r\n```\r\n\r\n### 1.2 分页返回格式\r\n分页接口使用 `PageResult` 封装：\r\n```json\r\n{\r\n  \"code\": 1,\r\n  \"msg\": null,\r\n  \"data\": {\r\n    \"total\": 100,\r\n    \"records\": []\r\n  }\r\n}\r\n```\r\n\r\n### 1.3 认证机制\r\n- 使用 JWT Token 认证，请求头携带：`Authorization: Bearer {token}`\r\n- 管理员接口需额外校验角色：`role` 需为 `INST_ADMIN` 或 `SUPER_ADMIN`\r\n\r\n---\r\n\r\n## 二、认证与用户模块\r\n\r\n### 2.1 用户注册\r\n```http\r\nPOST /api/auth/register\r\n```\r\n\r\n**请求参数：**\r\n```json\r\n{\r\n  \"mobile\": \"13800000001\",\r\n  \"email\": \"zhangsan@test.com\",\r\n  \"password\": \"a12345678\",\r\n  \"name\": \"张三\",\r\n  \"gender\": 1,\r\n  \"birthDate\": \"1990-01-01\"\r\n}\r\n```\r\n\r\n**返回结果：**\r\n```json\r\n{\r\n  \"code\": 1,\r\n  \"msg\": null,\r\n  \"data\": {\r\n    \"id\": 10001,\r\n    \"mobile\": \"13800000001\",\r\n    \"email\": \"zhangsan@test.com\",\r\n    \"name\": \"张三\",\r\n    \"role\": \"USER\"\r\n  }\r\n}\r\n```\r\n\r\n**接口说明：** 新用户注册，密码需满足8位以上含字母数字\r\n\r\n---\r\n\r\n### 2.2 用户登录\r\n```http\r\nPOST /api/auth/login\r\n```\r\n\r\n**请求参数：**\r\n```json\r\n{\r\n  \"account\": \"13800000001\",  // 手机或邮箱\r\n  \"password\": \"a12345678\"\r\n}\r\n```\r\n\r\n**返回结果：**\r\n```json\r\n{\r\n  \"code\": 1,\r\n  \"msg\": null,\r\n  \"data\": {\r\n    \"token\": \"eyJhbGciOiJIUzI1NiJ9...\",\r\n    \"expiresIn\": 3600,\r\n    \"userInfo\": {\r\n      \"id\": 10001,\r\n      \"name\": \"张三\",\r\n      \"role\": \"USER\"\r\n    }\r\n  }\r\n}\r\n```\r\n\r\n**接口说明：** 登录成功后返回JWT token，有效期1小时\r\n\r\n---\r\n\r\n### 2.3 获取当前用户信息\r\n```http\r\nGET /api/auth/current\r\n```\r\n\r\n**请求头：** `Authorization: Bearer {token}`\r\n\r\n**返回结果：**\r\n```json\r\n{\r\n  \"code\": 1,\r\n  \"msg\": null,\r\n  \"data\": {\r\n    \"id\": 10001,\r\n    \"mobile\": \"13800000001\",\r\n    \"email\": \"zhangsan@test.com\",\r\n    \"name\": \"张三\",\r\n    \"gender\": 1,\r\n    \"birthDate\": \"1990-01-01\",\r\n    \"status\": 1,\r\n    \"role\": \"USER\"\r\n  }\r\n}\r\n```\r\n\r\n---\r\n\r\n## 三、测评流程模块\r\n\r\n### 3.1 创建测评记录\r\n```http\r\nPOST /api/assessment/create\r\n```\r\n\r\n**请求参数：**\r\n```json\r\n{\r\n  \"type\": \"QUICK\"  // QUICK-极速测评(12题), FULL-完整测评(36题)\r\n}\r\n```\r\n\r\n**请求头：** `Authorization: Bearer {token}`\r\n\r\n**返回结果：**\r\n```json\r\n{\r\n  \"code\": 1,\r\n  \"msg\": null,\r\n  \"data\": {\r\n    \"assessmentId\": 20001,\r\n    \"type\": \"QUICK\",\r\n    \"status\": \"INIT\",\r\n    \"questionCount\": 12\r\n  }\r\n}\r\n```\r\n\r\n**接口说明：** 创建新的测评任务，极速测评随机抽取每子维度1题\r\n\r\n---\r\n\r\n### 3.2 获取测评题目\r\n```http\r\nGET /api/assessment/{assessmentId}/questions\r\n```\r\n\r\n**路径参数：** `assessmentId` - 测评记录ID\r\n\r\n**请求头：** `Authorization: Bearer {token}`\r\n\r\n**返回结果：**\r\n```json\r\n{\r\n  \"code\": 1,\r\n  \"msg\": null,\r\n  \"data\": [\r\n    {\r\n      \"questionId\": 30001,\r\n      \"subDimCode\": \"E1\",\r\n      \"subDimName\": \"目标设定\",\r\n      \"content\": \"我善于把愿景转化为可衡量的目标。\",\r\n      \"seq\": 1,\r\n      \"options\": [\r\n        {\r\n          \"optionId\": 40001,\r\n          \"label\": \"非常不符合\",\r\n          \"score\": 1,\r\n          \"seq\": 1\r\n        },\r\n        {\r\n          \"optionId\": 40002,\r\n          \"label\": \"较不符合\",\r\n          \"score\": 2,\r\n          \"seq\": 2\r\n        },\r\n        {\r\n          \"optionId\": 40003,\r\n          \"label\": \"一般\",\r\n          \"score\": 3,\r\n          \"seq\": 3\r\n        },\r\n        {\r\n          \"optionId\": 40004,\r\n          \"label\": \"较符合\",\r\n          \"score\": 4,\r\n          \"seq\": 4\r\n        },\r\n        {\r\n          \"optionId\": 40005,\r\n          \"label\": \"非常符合\",\r\n          \"score\": 5,\r\n          \"seq\": 5\r\n        }\r\n      ]\r\n    }\r\n  ]\r\n}\r\n```\r\n\r\n---\r\n\r\n### 3.3 提交答案\r\n```http\r\nPOST /api/assessment/{assessmentId}/answer\r\n```\r\n\r\n**路径参数：** `assessmentId` - 测评记录ID\r\n\r\n**请求参数：**\r\n```json\r\n{\r\n  \"questionId\": 30001,\r\n  \"optionId\": 40003\r\n}\r\n```\r\n\r\n**请求头：** `Authorization: Bearer {token}`\r\n\r\n**返回结果：**\r\n```json\r\n{\r\n  \"code\": 1,\r\n  \"msg\": null,\r\n  \"data\": {\r\n    \"assessmentId\": 20001,\r\n    \"questionId\": 30001,\r\n    \"answered\": true,\r\n    \"remainQuestions\": 11\r\n  }\r\n}\r\n```\r\n\r\n**接口说明：** 单题提交，支持返回剩余题数；重复提交同一题则覆盖答案\r\n\r\n---\r\n\r\n### 3.4 完成测评并计算得分\r\n```http\r\nPOST /api/assessment/{assessmentId}/complete\r\n```\r\n\r\n**路径参数：** `assessmentId` - 测评记录ID\r\n\r\n**请求头：** `Authorization: Bearer {token}`\r\n\r\n**返回结果：**\r\n```json\r\n{\r\n  \"code\": 1,\r\n  \"msg\": null,\r\n  \"data\": {\r\n    \"assessmentId\": 20001,\r\n    \"status\": \"DONE\",\r\n    \"eScore\": 85,\r\n    \"rScore\": 72,\r\n    \"tScore\": 90,\r\n    \"portraitId\": 17,\r\n    \"portraitDesc\": \"卓越领导者：三高型...\"\r\n  }\r\n}\r\n```\r\n\r\n**接口说明：** 必须答完所有题目才能调用，自动计算三大维度得分并匹配画像\r\n\r\n---\r\n\r\n### 3.5 获取测评结果详情\r\n```http\r\nGET /api/assessment/{assessmentId}/result\r\n```\r\n\r\n**路径参数：** `assessmentId` - 测评记录ID\r\n\r\n**请求头：** `Authorization: Bearer {token}`\r\n\r\n**返回结果：**\r\n```json\r\n{\r\n  \"code\": 1,\r\n  \"msg\": null,\r\n  \"data\": {\r\n    \"assessmentId\": 20001,\r\n    \"userName\": \"张三\",\r\n    \"type\": \"FULL\",\r\n    \"completedAt\": \"2024-01-15 14:30:00\",\r\n    \"dimensionScores\": {\r\n      \"E\": {\r\n        \"score\": 85,\r\n        \"level\": \"H\",\r\n        \"description\": \"执行优秀：高结果导向，可辅导他人...\"\r\n      },\r\n      \"R\": {\r\n        \"score\": 72,\r\n        \"level\": \"H\",\r\n        \"description\": \"关系中等：已能建立信任，需提升冲突管理...\"\r\n      },\r\n      \"T\": {\r\n        \"score\": 90,\r\n        \"level\": \"H\",\r\n        \"description\": \"思考优秀：战略前瞻与系统洞察突出...\"\r\n      }\r\n    },\r\n    \"portrait\": {\r\n      \"code\": \"HHH\",\r\n      \"description\": \"卓越领导者：三高型，执行力、关系力、思考力均衡突出...\"\r\n    },\r\n    \"subDimensionScores\": [\r\n      {\r\n        \"code\": \"E1\",\r\n        \"name\": \"目标设定\",\r\n        \"score\": 78,\r\n        \"dimension\": \"E\",\r\n        \"actionPlan\": \"成为团队 OKR 教练，帮助成员撰写关键结果...\"\r\n      }\r\n      // ... 其他11个子维度\r\n    ]\r\n  }\r\n}\r\n```\r\n\r\n---\r\n\r\n## 四、管理后台模块\r\n\r\n### 4.1 用户管理\r\n\r\n#### 4.1.1 分页查询用户列表\r\n```http\r\nGET /api/admin/user/page?page=1&pageSize=10&status=1&role=USER\r\n```\r\n\r\n**查询参数：**\r\n- `page`：页码，默认1\r\n- `pageSize`：每页条数，默认10\r\n- `status`：状态筛选（可选）\r\n- `role`：角色筛选（可选）\r\n- `keyword`：姓名/手机/邮箱模糊搜索（可选）\r\n\r\n**返回结果：**\r\n```json\r\n{\r\n  \"code\": 1,\r\n  \"msg\": null,\r\n  \"data\": {\r\n    \"total\": 150,\r\n    \"records\": [\r\n      {\r\n        \"id\": 10001,\r\n        \"mobile\": \"13800000001\",\r\n        \"name\": \"张三\",\r\n        \"status\": 1,\r\n        \"role\": \"USER\",\r\n        \"assessmentCount\": 3\r\n      }\r\n    ]\r\n  }\r\n}\r\n```\r\n\r\n---\r\n\r\n#### 4.1.2 启用/禁用用户\r\n```http\r\nPUT /api/admin/user/{userId}/status\r\n```\r\n\r\n**路径参数：** `userId` - 用户ID\r\n\r\n**请求参数：**\r\n```json\r\n{\r\n  \"status\": 0  // 0-禁用，1-启用\r\n}\r\n```\r\n\r\n**返回结果：**\r\n```json\r\n{\r\n  \"code\": 1,\r\n  \"msg\": \"操作成功\",\r\n  \"data\": null\r\n}\r\n```\r\n\r\n---\r\n\r\n#### 4.1.3 设置用户角色\r\n```http\r\nPUT /api/admin/user/{userId}/role\r\n```\r\n\r\n**路径参数：** `userId` - 用户ID\r\n\r\n**请求参数：**\r\n```json\r\n{\r\n  \"role\": \"INST_ADMIN\"  // USER/INST_ADMIN/SUPER_ADMIN\r\n}\r\n```\r\n\r\n**返回结果：**\r\n```json\r\n{\r\n  \"code\": 1,\r\n  \"msg\": \"角色设置成功\",\r\n  \"data\": null\r\n}\r\n```\r\n\r\n---\r\n\r\n### 4.2 题目管理\r\n\r\n#### 4.2.1 分页查询题目\r\n```http\r\nGET /api/admin/question/page?page=1&pageSize=10&subDimCode=E1\r\n```\r\n\r\n**查询参数：**\r\n- `subDimCode`：子维度编码筛选（可选）\r\n- `keyword`：题干关键词搜索（可选）\r\n\r\n**返回结果：**\r\n```json\r\n{\r\n  \"code\": 1,\r\n  \"data\": {\r\n    \"total\": 36,\r\n    \"records\": [\r\n      {\r\n        \"id\": 30001,\r\n        \"subDimCode\": \"E1\",\r\n        \"subDimName\": \"目标设定\",\r\n        \"content\": \"我善于把愿景转化为可衡量的目标。\",\r\n        \"seq\": 1,\r\n        \"optionCount\": 5\r\n      }\r\n    ]\r\n  }\r\n}\r\n```\r\n\r\n---\r\n\r\n#### 4.2.2 创建题目\r\n```http\r\nPOST /api/admin/question\r\n```\r\n\r\n**请求参数：**\r\n```json\r\n{\r\n  \"subDimCode\": \"E1\",\r\n  \"content\": \"我能够为团队设定挑战性但可达成的目标。\",\r\n  \"seq\": 4\r\n}\r\n```\r\n\r\n**返回结果：**\r\n```json\r\n{\r\n  \"code\": 1,\r\n  \"msg\": \"创建成功\",\r\n  \"data\": {\r\n    \"questionId\": 30037\r\n  }\r\n}\r\n```\r\n\r\n---\r\n\r\n#### 4.2.3 更新题目\r\n```http\r\nPUT /api/admin/question/{questionId}\r\n```\r\n\r\n**路径参数：** `questionId` - 题目ID\r\n\r\n**请求参数：**\r\n```json\r\n{\r\n  \"subDimCode\": \"E1\",\r\n  \"content\": \"我能够为团队设定挑战性但可达成的目标（已更新）。\",\r\n  \"seq\": 4\r\n}\r\n```\r\n\r\n---\r\n\r\n#### 4.2.4 删除题目\r\n```http\r\nDELETE /api/admin/question/{questionId}\r\n```\r\n\r\n**路径参数：** `questionId` - 题目ID\r\n\r\n**接口说明：** 级联删除关联的选项和答案数据\r\n\r\n---\r\n\r\n### 4.3 维度配置管理\r\n\r\n#### 4.3.1 查询三大能力维度\r\n```http\r\nGET /api/admin/dimension/list\r\n```\r\n\r\n**返回结果：**\r\n```json\r\n{\r\n  \"code\": 1,\r\n  \"data\": [\r\n    {\r\n      \"code\": \"E\",\r\n      \"name\": \"执行\",\r\n      \"description\": \"执行力维度：目标设定、结果导向...\",\r\n      \"subDimensionCount\": 4\r\n    }\r\n  ]\r\n}\r\n```\r\n\r\n---\r\n\r\n#### 4.3.2 更新维度描述\r\n```http\r\nPUT /api/admin/dimension/{code}\r\n```\r\n\r\n**路径参数：** `code` - 维度编码(E/R/T)\r\n\r\n**请求参数：**\r\n```json\r\n{\r\n  \"name\": \"执行\",\r\n  \"description\": \"新描述内容（支持富文本）\"\r\n}\r\n```\r\n\r\n---\r\n\r\n### 4.4 子维度配置管理\r\n\r\n#### 4.4.1 查询子维度列表\r\n```http\r\nGET /api/admin/sub-dimension/list?dimensionCode=E\r\n```\r\n\r\n**查询参数：** `dimensionCode` - 父维度编码（可选）\r\n\r\n**返回结果：**\r\n```json\r\n{\r\n  \"code\": 1,\r\n  \"data\": [\r\n    {\r\n      \"code\": \"E1\",\r\n      \"dimensionCode\": \"E\",\r\n      \"name\": \"目标设定\",\r\n      \"description\": \"能否清晰设定可衡量的目标\"\r\n    }\r\n  ]\r\n}\r\n```\r\n\r\n---\r\n\r\n#### 4.4.2 更新子维度\r\n```http\r\nPUT /api/admin/sub-dimension/{code}\r\n```\r\n\r\n**路径参数：** `code` - 子维度编码\r\n\r\n**请求参数：**\r\n```json\r\n{\r\n  \"name\": \"目标设定与拆解\",\r\n  \"description\": \"新描述内容\"\r\n}\r\n```\r\n\r\n---\r\n\r\n### 4.5 27项领导力画像配置\r\n\r\n#### 4.5.1 查询画像列表\r\n```http\r\nGET /api/admin/portrait/list\r\n```\r\n\r\n**返回结果：**\r\n```json\r\n{\r\n  \"code\": 1,\r\n  \"data\": [\r\n    {\r\n      \"id\": 17,\r\n      \"code\": \"HHH\",\r\n      \"eLevel\": \"H\",\r\n      \"rLevel\": \"H\",\r\n      \"tLevel\": \"H\",\r\n      \"description\": \"卓越领导者：三高型...\"\r\n    }\r\n  ]\r\n}\r\n```\r\n\r\n---\r\n\r\n#### 4.5.2 更新画像描述\r\n```http\r\nPUT /api/admin/portrait/{id}\r\n```\r\n\r\n**路径参数：** `id` - 画像主键\r\n\r\n**请求参数：**\r\n```json\r\n{\r\n  \"description\": \"更新后的画像描述（支持富文本）\"\r\n}\r\n```\r\n\r\n---\r\n\r\n### 4.6 ERT得分区间管理\r\n\r\n#### 4.6.1 查询得分区间\r\n```http\r\nGET /api/admin/ert-score-desc/list?dimensionCode=E\r\n```\r\n\r\n**查询参数：** `dimensionCode` - 维度编码\r\n\r\n**返回结果：**\r\n```json\r\n{\r\n  \"code\": 1,\r\n  \"data\": [\r\n    {\r\n      \"id\": 1,\r\n      \"dimensionCode\": \"E\",\r\n      \"minScore\": 0,\r\n      \"maxScore\": 40,\r\n      \"description\": \"执行较弱：需从目标设定与计划推进开始系统提升\"\r\n    }\r\n  ]\r\n}\r\n```\r\n\r\n---\r\n\r\n#### 4.6.2 更新得分区间描述\r\n```http\r\nPUT /api/admin/ert-score-desc/{id}\r\n```\r\n\r\n**路径参数：** `id` - 记录ID\r\n\r\n**请求参数：**\r\n```json\r\n{\r\n  \"minScore\": 0,\r\n  \"maxScore\": 40,\r\n  \"description\": \"更新后的区间描述\"\r\n}\r\n```\r\n\r\n---\r\n\r\n### 4.7 子维度行动方案管理\r\n\r\n#### 4.7.1 查询行动方案\r\n```http\r\nGET /api/admin/sub-score-action/list?subDimCode=E1\r\n```\r\n\r\n**查询参数：** `subDimCode` - 子维度编码\r\n\r\n**返回结果：**\r\n```json\r\n{\r\n  \"code\": 1,\r\n  \"data\": [\r\n    {\r\n      \"id\": 1,\r\n      \"subDimCode\": \"E1\",\r\n      \"minScore\": 0,\r\n      \"maxScore\": 25,\r\n      \"actionPlan\": \"使用SMART工具每周设定1个微目标...\"\r\n    }\r\n  ]\r\n}\r\n```\r\n\r\n---\r\n\r\n#### 4.7.2 更新行动方案\r\n```http\r\nPUT /api/admin/sub-score-action/{id}\r\n```\r\n\r\n**路径参数：** `id` - 记录ID\r\n\r\n**请求参数：**\r\n```json\r\n{\r\n  \"minScore\": 0,\r\n  \"maxScore\": 25,\r\n  \"actionPlan\": \"更新后的行动方案（支持富文本）\"\r\n}\r\n```\r\n\r\n---\r\n\r\n### 4.8 系统配置管理\r\n\r\n#### 4.8.1 获取联系信息\r\n```http\r\nGET /api/admin/contact\r\n```\r\n\r\n**返回结果：**\r\n```json\r\n{\r\n  \"code\": 1,\r\n  \"data\": {\r\n    \"company\": \"ERT领导力研究院\",\r\n    \"phone\": \"400-123-4567\",\r\n    \"email\": \"support@ertleader.com\",\r\n    \"address\": \"上海市浦东新区张江高科技园区700号\"\r\n  }\r\n}\r\n```\r\n\r\n---\r\n\r\n#### 4.8.2 更新联系信息\r\n```http\r\nPUT /api/admin/contact\r\n```\r\n\r\n**请求参数：**\r\n```json\r\n{\r\n  \"company\": \"ERT领导力研究院\",\r\n  \"phone\": \"400-123-4567\",\r\n  \"email\": \"support@ertleader.com\",\r\n  \"address\": \"新地址\"\r\n}\r\n```\r\n\r\n---\r\n\r\n## 五、历史测评记录模块\r\n\r\n### 5.1 查询我的测评历史\r\n```http\r\nGET /api/assessment/history?page=1&pageSize=10\r\n```\r\n\r\n**请求头：** `Authorization: Bearer {token}`\r\n\r\n**返回结果：**\r\n```json\r\n{\r\n  \"code\": 1,\r\n  \"data\": {\r\n    \"total\": 5,\r\n    \"records\": [\r\n      {\r\n        \"assessmentId\": 20001,\r\n        \"type\": \"FULL\",\r\n        \"status\": \"DONE\",\r\n        \"completedAt\": \"2024-01-15 14:30:00\",\r\n        \"eScore\": 85,\r\n        \"rScore\": 72,\r\n        \"tScore\": 90,\r\n        \"portraitCode\": \"HHH\"\r\n      }\r\n    ]\r\n  }\r\n}\r\n```\r\n\r\n---\r\n\r\n### 5.2 管理员查询所有测评记录\r\n```http\r\nGET /api/admin/assessment/page?page=1&pageSize=10&userId=10001\r\n```\r\n\r\n**查询参数：**\r\n- `userId`：用户ID筛选（可选）\r\n- `status`：状态筛选（可选）\r\n\r\n**返回结果：**\r\n```json\r\n{\r\n  \"code\": 1,\r\n  \"data\": {\r\n    \"total\": 500,\r\n    \"records\": [\r\n      {\r\n        \"assessmentId\": 20001,\r\n        \"userName\": \"张三\",\r\n        \"userMobile\": \"13800000001\",\r\n        \"type\": \"FULL\",\r\n        \"status\": \"DONE\",\r\n        \"completedAt\": \"2024-01-15 14:30:00\",\r\n        \"eScore\": 85,\r\n        \"rScore\": 72,\r\n        \"tScore\": 90\r\n      }\r\n    ]\r\n  }\r\n}\r\n```\r\n\r\n---\r\n\r\n## 六、核心业务流程图\r\n\r\n### 6.1 完整测评流程（用户端）\r\n\r\n```mermaid\r\nsequenceDiagram\r\n    participant 用户\r\n    participant 前端\r\n    participant 后端\r\n    participant 数据库\r\n\r\n    用户->>前端: 点击\"开始完整测评\"\r\n    前端->>后端: POST /api/assessment/create (type=FULL)\r\n    后端->>数据库: 插入assessment记录\r\n    后端-->>前端: 返回assessmentId\r\n    前端->>后端: GET /api/assessment/{id}/questions\r\n    后端->>数据库: 查询question+option\r\n    后端-->>前端: 返回题目列表\r\n    loop 每道题\r\n        用户->>前端: 选择选项\r\n        前端->>后端: POST /api/assessment/{id}/answer\r\n        后端->>数据库: 插入或更新answer\r\n        后端-->>前端: 返回剩余题数\r\n    end\r\n    用户->>前端: 点击\"完成测评\"\r\n    前端->>后端: POST /api/assessment/{id}/complete\r\n    后端->>数据库: 计算E/R/T得分\r\n    后端->>数据库: 查询portrait匹配画像\r\n    后端->>数据库: 更新assessment状态为DONE\r\n    后端-->>前端: 返回得分和画像\r\n    前端->>后端: GET /api/assessment/{id}/result\r\n    后端->>数据库: 查询详细结果\r\n    后端-->>前端: 返回完整报告\r\n```\r\n\r\n---\r\n\r\n### 6.2 管理员配置流程\r\n\r\n```mermaid\r\nflowchart TD\r\n    A[管理员登录] --> B[进入后台管理]\r\n    \r\n    B --> C{选择配置类型}\r\n    C --> D[题目管理]\r\n    C --> E[维度配置]\r\n    C --> F[画像配置]\r\n    C --> G[得分区间配置]\r\n    \r\n    D --> D1[CRUD题目]\r\n    D1 --> D2[级联更新选项]\r\n    \r\n    E --> E1[编辑维度描述]\r\n    E --> E2[编辑子维度描述]\r\n    \r\n    F --> F1[配置27种组合描述]\r\n    \r\n    G --> G1[ERT维度区间]\r\n    G --> G2[子维度区间+行动方案]\r\n    \r\n    D2 --> H[实时生效]\r\n    E2 --> H\r\n    F1 --> H\r\n    G2 --> H\r\n```\r\n\r\n---\r\n\r\n### 6.3 测评得分计算逻辑\r\n\r\n```mermaid\r\nflowchart TD\r\n    A[用户提交答案] --> B[收集所有option.score]\r\n    B --> C{按子维度分组}\r\n    \r\n    C --> D[计算每子维度平均分]\r\n    D --> E[子维度得分区间映射]\r\n    E --> F[生成行动方案]\r\n    \r\n    C --> G[汇总到大维度]\r\n    G --> H[计算E/R/T平均分]\r\n    H --> I[维度等级划分 H/L]\r\n    \r\n    I --> J[三维组合匹配画像]\r\n    J --> K[生成最终报告]\r\n    E --> K\r\n    F --> K\r\n```\r\n\r\n---\r\n\r\n## 七、接口调用示例（前端）\r\n\r\n### 7.1 完整测评流程代码示例\r\n```javascript\r\n// 1. 创建测评\r\nconst createResponse = await axios.post('/api/assessment/create', \r\n  { type: 'FULL' },\r\n  { headers: { Authorization: `Bearer ${token}` } }\r\n);\r\nconst assessmentId = createResponse.data.data.assessmentId;\r\n\r\n// 2. 获取题目\r\nconst questionsResponse = await axios.get(\r\n  `/api/assessment/${assessmentId}/questions`,\r\n  { headers: { Authorization: `Bearer ${token}` } }\r\n);\r\nconst questions = questionsResponse.data.data;\r\n\r\n// 3. 循环答题\r\nfor (const q of questions) {\r\n  await axios.post(`/api/assessment/${assessmentId}/answer`,\r\n    { questionId: q.questionId, optionId: selectedOptionId },\r\n    { headers: { Authorization: `Bearer ${token}` } }\r\n  );\r\n}\r\n\r\n// 4. 完成测评\r\nawait axios.post(\r\n  `/api/assessment/${assessmentId}/complete`,\r\n  {},\r\n  { headers: { Authorization: `Bearer ${token}` } }\r\n);\r\n\r\n// 5. 获取结果\r\nconst resultResponse = await axios.get(\r\n  `/api/assessment/${assessmentId}/result`,\r\n  { headers: { Authorization: `Bearer ${token}` } }\r\n);\r\nconsole.log(resultResponse.data.data);\r\n```\r\n\r\n---\r\n\r\n## 八、重要业务规则\r\n\r\n| 规则项 | 说明 |\r\n|--------|------|\r\n| **测评类型** | QUICK=12题（每子维度1题），FULL=36题（每子维度3题） |\r\n| **得分范围** | 每道题1-5分，子维度得分=平均分，维度得分=子维度平均分 |\r\n| **维度等级** | ≥60分为H(高)，<60分为L(低) |\r\n| **画像匹配** | 根据E/R/T三维H/L组合，27种可能（3³） |\r\n| **答案覆盖** | 同一测评同一题可重复提交，以最后一次为准 |\r\n| **级联删除** | 删除题目会级联删除option和answer；删除用户会级联删除assessment和answer |\r\n| **状态流转** | INIT(进行中) → DONE(已完成)，不可回退 |\r\n| **数据权限** | 用户只能查看自己的测评，管理员可查看所有 |\r\n\r\n---\r\n\r\n## 九、错误码定义\r\n\r\n| 错误码 | 说明 |\r\n|--------|------|\r\n| `1001` | 用户不存在 |\r\n| `1002` | 密码错误 |\r\n| `1003` | Token过期或无效 |\r\n| `2001` | 测评不存在 |\r\n| `2002` | 无权访问该测评 |\r\n| `2003` | 题目未答完无法完成 |\r\n| `3001` | 题目不存在 |\r\n| `3002` | 选项不属于该题目 |\r\n| `4001` | 无权访问管理员接口 |\r\n| `5000` | 系统内部错误 |\r\n\r\n---\r\n\r\n## 十、接口版本管理\r\n\r\n- **基础路径：** `/api/v1`\r\n- **当前版本：** v1.0\r\n- **文档版本：** v1.1_开发需求\r\n"
+          }
+        ]
+      }
+    ]
+  }
+}
