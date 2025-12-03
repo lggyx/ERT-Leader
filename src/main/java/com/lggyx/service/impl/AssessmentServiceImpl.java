@@ -14,6 +14,7 @@ import com.lggyx.service.IAssessmentService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -49,6 +50,8 @@ public class AssessmentServiceImpl extends ServiceImpl<AssessmentMapper, Assessm
     private ErtScoreDescMapper ertScoreDescMapper;
     @Resource
     private SubScoreActionMapper subScoreActionMapper;
+    @Autowired
+    private PortraitMapper portraitMapper;
 
     /**
      * 创建测评记录
@@ -270,12 +273,21 @@ public class AssessmentServiceImpl extends ServiceImpl<AssessmentMapper, Assessm
 
     //todo: 获取画像
     public int getPortraitId(int eScore, int rScore, int tScore) {
-        return 1;
+        //先计算e画像在数据库对应最小得分到最大得分那个区间0-50为L，51-100为H
+        String eLevel =  (eScore >= 51 ? "H" : "L");
+        String rLevel = (rScore>= 51 ? "H" : "L");
+        String tLevel = (tScore>= 51 ? "H" : "L");
+        return portraitMapper.selectOne(
+                Wrappers.<Portrait>lambdaQuery()
+                        .eq(Portrait::getELevel, eLevel)
+                        .eq(Portrait::getRLevel, rLevel)
+                        .eq(Portrait::getTLevel, tLevel)
+        ).getId();
     }
 
     //todo: 获取画像描述
     public String getPortraitDesc(int portraitId) {
-        return "";
+        return portraitMapper.selectById(portraitId).getDescription();
     }
 
     /**
