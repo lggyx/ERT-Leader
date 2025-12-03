@@ -2,6 +2,7 @@ package com.lggyx.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lggyx.context.BaseContext;
 import com.lggyx.enumeration.SuccessCode;
 import com.lggyx.mapper.*;
@@ -385,6 +386,16 @@ public class AssessmentServiceImpl extends ServiceImpl<AssessmentMapper, Assessm
      */
     @Override
     public Result<PageResult> getHistory(Integer page, Integer pageSize) {
-        return null;
+        String account = BaseContext.getCurrentAccount();
+        Long userId = userMapper.selectOne(
+                Wrappers.<User>lambdaQuery().eq(User::getMobile, account)
+                        .or()
+                        .eq(User::getEmail, account)
+        ).getId();
+
+        Page<Assessment> pageParam = new Page<>(page, pageSize);
+        Page<Assessment> pageResult = this.page(pageParam, Wrappers.<Assessment>lambdaQuery().eq(Assessment::getUserId,
+                userId));
+        return Result.success(SuccessCode.SUCCESS, new PageResult(pageResult.getTotal(), pageResult.getRecords()));
     }
 }
