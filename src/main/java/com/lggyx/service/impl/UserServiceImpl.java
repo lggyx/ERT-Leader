@@ -141,7 +141,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         PageResult pageResult = new PageResult();
         pageResult.setTotal(resultPage.getTotal());
         pageResult.setRecords(resultPage.getRecords());
-        return Result.success(pageResult);
+        return Result.success(SuccessCode.SUCCESS,pageResult);
     }
 
     /**
@@ -170,7 +170,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      */
     @Override
     public Result<Void> updateRole(Long userId, String role) {
-        return null;
+        int count = userMapper.update(null,
+                Wrappers.<User>lambdaUpdate()
+                        .set(User::getRole, role)
+                        .eq(User::getId, userId));
+        return count > 0 ? Result.success(SuccessCode.SUCCESS) : Result.error("修改用户角色失败");
     }
 
 
