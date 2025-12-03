@@ -153,7 +153,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      */
     @Override
     public Result<Void> updateStatus(Long userId, Integer status) {
-        return null;
+        int count = userMapper.update(null,
+                Wrappers.<User>lambdaUpdate()
+                        .set(User::getStatus, status)
+                        .eq(User::getId, userId));
+        //todo检查是否存在token为更新的用户，如果存在则删除对应token
+        return count > 0 ? Result.success(SuccessCode.SUCCESS) : Result.error("修改用户状态失败");
     }
 
     /**

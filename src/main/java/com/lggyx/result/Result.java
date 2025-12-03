@@ -42,7 +42,12 @@ public class Result<T> implements Serializable {
         result.data = object;
         return result;
     }
-
+    public static <T>  Result<T> success(SuccessCode successCode) {
+        Result<T> result = new Result<>();
+        result.code = successCode.getCode();
+        result.msg = successCode.getMsg();
+        return result;
+    }
     /*=========== 失败 ===========*/
 
     /**
@@ -64,4 +69,6 @@ public class Result<T> implements Serializable {
         result.msg = errorCode.getMsg();
         return result;
     }
+
+
 }
