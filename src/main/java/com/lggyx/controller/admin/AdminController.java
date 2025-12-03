@@ -44,5 +44,15 @@ public class AdminController {
         return userService.updateRole(userId, role);
     }
 
+    @Operation(summary = "管理员查询所有测评记录", description = "")
+    @GetMapping("/api/admin/assessment/page")
+    public Result<PageResult> assessmentPage(
+            @RequestParam(value = "page", defaultValue = "1") Integer page,
+            @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize,
+            @RequestParam(value = "status", defaultValue = "", required = false) String status,
+            @RequestParam(value = "userId", defaultValue = "", required = false) Long userId
+    ){
+        return userService.assessmentPage(page, pageSize, status, userId);
+    }
 
 }

@@ -6,8 +6,10 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lggyx.context.BaseContext;
 import com.lggyx.enumeration.SuccessCode;
+import com.lggyx.mapper.AssessmentMapper;
 import com.lggyx.pojo.dto.LoginDTO;
 import com.lggyx.pojo.dto.UserDTO;
+import com.lggyx.pojo.entity.Assessment;
 import com.lggyx.pojo.entity.User;
 import com.lggyx.mapper.UserMapper;
 import com.lggyx.pojo.vo.CurrentUserVO;
@@ -37,6 +39,8 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
     @Resource
     public UserMapper userMapper;
+    @Resource
+    private AssessmentMapper assessmentMapper;
 
     /**
      * 用户注册
@@ -141,7 +145,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         PageResult pageResult = new PageResult();
         pageResult.setTotal(resultPage.getTotal());
         pageResult.setRecords(resultPage.getRecords());
-        return Result.success(SuccessCode.SUCCESS,pageResult);
+        return Result.success(SuccessCode.SUCCESS, pageResult);
     }
 
     /**
@@ -175,6 +179,31 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
                         .set(User::getRole, role)
                         .eq(User::getId, userId));
         return count > 0 ? Result.success(SuccessCode.SUCCESS) : Result.error("修改用户角色失败");
+    }
+    /**
+     * 所有测评列表
+     *
+     * @param page     页码
+     * @param pageSize 每页数量
+     * @param status   状态：DONE/INIT
+     * @param userId   用户ID
+     * @return Result
+     */
+    @Override
+    public Result<PageResult> assessmentPage(Integer page, Integer pageSize, String status, Long userId) {
+        Page<Assessment> assessmentPage = new Page<>(page, pageSize);
+        QueryWrapper<Assessment> queryWrapper = new QueryWrapper<>();
+        if (status != null && !status.trim().isEmpty()) {
+            queryWrapper.eq("status", status);
+        }
+        if (userId != null && userId > 0) {
+            queryWrapper.eq("user_id", userId);
+        }
+        IPage<Assessment> resultPage = assessmentMapper.selectPage(assessmentPage, queryWrapper);
+        PageResult pageResult = new PageResult();
+        pageResult.setTotal(resultPage.getTotal());
+        pageResult.setRecords(resultPage.getRecords());
+        return Result.success(SuccessCode.SUCCESS, pageResult);
     }
 
 

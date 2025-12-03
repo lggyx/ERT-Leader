@@ -34,4 +34,5 @@ public interface IUserService extends IService<User> {
     Result<Void> updateRole(Long userId, String role);
 
 
+    Result<PageResult> assessmentPage(Integer page, Integer pageSize, String status, Long userId);
 }
