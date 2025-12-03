@@ -2,6 +2,7 @@ package com.lggyx.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lggyx.enumeration.SuccessCode;
 import com.lggyx.pojo.dto.CreateQuestionDTO;
@@ -13,6 +14,7 @@ import com.lggyx.result.Result;
 import com.lggyx.service.IQuestionService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import jakarta.annotation.Resource;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 /**
@@ -59,11 +61,16 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
      * 创建题目
      *
      * @param createQuestionDTO 题目参数
-     * @return  Result
+     * @return Result
      */
     @Override
     public Result<CreateQuestionVO> create(CreateQuestionDTO createQuestionDTO) {
-        return null;
+        Question question = new Question();
+        BeanUtils.copyProperties(createQuestionDTO, question);
+        int insert = questionMapper.insert(question);
+        CreateQuestionVO createQuestionVO = new CreateQuestionVO();
+        createQuestionVO.setQuestionId(question.getId());
+        return insert > 0 ? Result.success(SuccessCode.SUCCESS, createQuestionVO) : Result.error("创建题目失败");
     }
 
     /**
@@ -71,22 +78,30 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
      *
      * @param questionId        题目ID
      * @param createQuestionDTO 修改参数
-     * @return
+     * @return Result
      */
     @Override
     public Result<Void> update(Long questionId, CreateQuestionDTO createQuestionDTO) {
-        return null;
+        Question question = new Question();
+        BeanUtils.copyProperties(createQuestionDTO, question);
+        int count = questionMapper.update(question,
+                Wrappers.<Question>lambdaQuery().eq(Question::getId, questionId)
+        );
+        return count > 0 ? Result.success(SuccessCode.SUCCESS) : Result.error("修改题目失败");
     }
 
     /**
      * 删除题目
      *
      * @param questionId 删除的题目ID
-     * @return
+     * @return Result
      */
     @Override
     public Result<Void> delete(Long questionId) {
-        return null;
+        int count = questionMapper.delete(
+                Wrappers.<Question>lambdaQuery().eq(Question::getId, questionId)
+        );
+        return count > 0 ? Result.success(SuccessCode.SUCCESS) : Result.error("删除题目失败");
     }
 
 
