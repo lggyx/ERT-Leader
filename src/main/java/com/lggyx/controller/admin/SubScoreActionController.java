@@ -1,7 +1,6 @@
 package com.lggyx.controller.admin;
 
 import com.lggyx.pojo.dto.UpdateSubScoreActionDTO;
-import com.lggyx.pojo.entity.SubScoreAction;
 import com.lggyx.pojo.vo.SubScoreActionVO;
 import com.lggyx.result.Result;
 import com.lggyx.service.ISubScoreActionService;
@@ -9,6 +8,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @Tag(name = "子维度行动方案管理", description = "子维度得分行动方案管理")
@@ -18,7 +19,7 @@ public class SubScoreActionController {
 
     @Operation(summary = "查询行动方案", description = "")
     @GetMapping("/api/admin/sub-score-action/list")
-    public Result<SubScoreActionVO> getList(
+    public Result<List<SubScoreActionVO>> getList(
             @RequestParam(name = "subDimCode", required = false) String subDimCode // 子维度编码
     ) {
         return subScoreActionService.getList(subDimCode);
