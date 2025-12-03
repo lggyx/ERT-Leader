@@ -1,6 +1,9 @@
 package com.lggyx.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lggyx.context.BaseContext;
 import com.lggyx.enumeration.SuccessCode;
 import com.lggyx.pojo.dto.LoginDTO;
@@ -20,6 +23,7 @@ import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+
 
 /**
  * <p>
@@ -53,7 +57,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         UserVO userVO = new UserVO();
         BeanUtils.copyProperties(user, userVO);
         if (count > 0)
-            return Result.success(SuccessCode.SUCCESS,userVO);
+            return Result.success(SuccessCode.SUCCESS, userVO);
         else return Result.error("用户注册失败");
     }
 
@@ -63,7 +67,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     /**
      * 用户登录
      *
-     * @param loginDTO
+     * @param loginDTO 登录信息
      * @return Result
      */
     @Override
@@ -85,7 +89,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         userInfo.setName(user.getName());
         userInfo.setRole(user.getRole());
         loginVO.setUserInfo(userInfo);
-        return Result.success(SuccessCode.SUCCESS,loginVO);
+        return Result.success(SuccessCode.SUCCESS, loginVO);
     }
 
     /**
@@ -102,7 +106,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
                 .or()
                 .eq(User::getEmail, account));
         BeanUtils.copyProperties(user, currentUserVO);
-        return Result.success(SuccessCode.SUCCESS,currentUserVO);
+        return Result.success(SuccessCode.SUCCESS, currentUserVO);
     }
 
     /**
@@ -117,7 +121,27 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      */
     @Override
     public Result<PageResult> page(Integer page, Integer pageSize, String status, String role, String keyword) {
-        return null;
+        Page<User> userPage = new Page<>(page, pageSize);
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        if (status != null && !status.trim().isEmpty()) {
+            queryWrapper.eq("status", status);
+        }
+        if (role != null && !role.trim().isEmpty()) {
+            queryWrapper.eq("role", role);
+        }
+        if (keyword != null && !keyword.trim().isEmpty()) {
+            queryWrapper.and(wrapper -> wrapper
+                    .like("name", keyword)
+                    .or()
+                    .like("email", keyword)
+                    .or()
+                    .like("mobile", keyword));
+        }
+        IPage<User> resultPage = userMapper.selectPage(userPage, queryWrapper);
+        PageResult pageResult = new PageResult();
+        pageResult.setTotal(resultPage.getTotal());
+        pageResult.setRecords(resultPage.getRecords());
+        return Result.success(pageResult);
     }
 
     /**

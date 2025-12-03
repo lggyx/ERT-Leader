@@ -15,11 +15,9 @@ import com.lggyx.service.IAssessmentService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 /**
@@ -44,14 +42,12 @@ public class AssessmentServiceImpl extends ServiceImpl<AssessmentMapper, Assessm
     @Resource
     private OptionsMapper optionMapper;
     @Resource
-    private DimensionMapper dimensionMapper;
-    @Resource
     private SubDimensionMapper subDimensionMapper;
     @Resource
     private ErtScoreDescMapper ertScoreDescMapper;
     @Resource
     private SubScoreActionMapper subScoreActionMapper;
-    @Autowired
+    @Resource
     private PortraitMapper portraitMapper;
 
     /**
@@ -148,7 +144,6 @@ public class AssessmentServiceImpl extends ServiceImpl<AssessmentMapper, Assessm
         if (assessmentId == null || assessmentId <= 0) {
             return Result.error("请选择正确的测评记录ID");
         }
-        //todo 需要添加查找不到的处理
         List<Answer> answerList = answerMapper.selectList(Wrappers.<Answer>lambdaQuery().eq(Answer::getAssessmentId,
                 assessmentId));
         if (answerList.isEmpty()) {
@@ -225,7 +220,8 @@ public class AssessmentServiceImpl extends ServiceImpl<AssessmentMapper, Assessm
                             .set(Assessment::getEScore, eScore)
                             .set(Assessment::getRScore, rScore)
                             .set(Assessment::getTScore, tScore)
-                            .set(Assessment::getPortraitId, getPortraitId(getScore('E', assessmentId), getScore('R', assessmentId), getScore('T', assessmentId)))
+                            .set(Assessment::getPortraitId, getPortraitId(getScore('E', assessmentId),
+                                    getScore('R', assessmentId), getScore('T', assessmentId)))
             );
             if (assessmentCount > 0) {
                 CompleteVO completeVO = new CompleteVO();
@@ -234,7 +230,8 @@ public class AssessmentServiceImpl extends ServiceImpl<AssessmentMapper, Assessm
                 completeVO.setEScore(eScore);
                 completeVO.setRScore(rScore);
                 completeVO.setTScore(tScore);
-                completeVO.setPortraitId(getPortraitId(completeVO.getEScore(), completeVO.getRScore(), completeVO.getTScore()));
+                completeVO.setPortraitId(getPortraitId(completeVO.getEScore(), completeVO.getRScore(),
+                        completeVO.getTScore()));
                 completeVO.setPortraitDesc(getPortraitDesc(completeVO.getPortraitId()));
                 return Result.success(SuccessCode.SUCCESS, completeVO);
             } else {
@@ -272,7 +269,14 @@ public class AssessmentServiceImpl extends ServiceImpl<AssessmentMapper, Assessm
 
     }
 
-    //todo: 获取画像
+    /**
+     * 获取画像ID
+     *
+     * @param eScore E评分
+     * @param rScore R评分
+     * @param tScore T评分
+     * @return int
+     */
     public int getPortraitId(int eScore, int rScore, int tScore) {
         //先计算e画像在数据库对应最小得分到最大得分那个区间0-50为L，51-100为H
         String eLevel = (eScore >= 51 ? "H" : "L");
@@ -286,7 +290,12 @@ public class AssessmentServiceImpl extends ServiceImpl<AssessmentMapper, Assessm
         ).getId();
     }
 
-    //todo: 获取画像描述
+    /**
+     * 获取画像描述
+     *
+     * @param portraitId 画像ID
+     * @return String
+     */
     public String getPortraitDesc(int portraitId) {
         return portraitMapper.selectById(portraitId).getDescription();
     }
@@ -334,6 +343,7 @@ public class AssessmentServiceImpl extends ServiceImpl<AssessmentMapper, Assessm
         portraitVO.setDescription(portrait.getDescription());
         resultVO.setPortrait(portraitVO);
 
+        //todo: 获取子维度得分，获取子维度得分计划等
         List<SubDimension> subDimensionList = subDimensionMapper.selectList(Wrappers.<SubDimension>lambdaQuery().in(
                 SubDimension::getDimensionCode, assessment.getType().charAt(0)
         ));
@@ -343,13 +353,21 @@ public class AssessmentServiceImpl extends ServiceImpl<AssessmentMapper, Assessm
             subDimensionScores.setName(subDimension.getName());
             subDimensionScores.setScore(getScore(subDimension.getCode().charAt(0), assessmentId));
             subDimensionScores.setDimension(getScore(subDimension.getCode().charAt(0), assessmentId) >= 51 ? "H" : "L");
-            subDimensionScores.setActionPlan(subScoreActionMapper.selectById(getScore(subDimension.getCode().charAt(0), assessmentId)).getActionPlan());
+            subDimensionScores.setActionPlan(subScoreActionMapper.selectById(getScore(subDimension.getCode().charAt(0),
+                    assessmentId)).getActionPlan());
             resultVO.getSubDimensionScores().add(subDimensionScores);
         }
         return Result.success(SuccessCode.SUCCESS, resultVO);
 
     }
 
+    /**
+     * 获取维度描述
+     *
+     * @param dimCode 维度代码
+     * @param score   分数
+     * @return String
+     */
     public String getDimensionDesc(char dimCode, int score) {
         QueryWrapper<ErtScoreDesc> queryWrapper = new QueryWrapper<>();
         queryWrapper.le("min_score", score)
