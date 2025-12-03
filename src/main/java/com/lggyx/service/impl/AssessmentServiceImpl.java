@@ -1,5 +1,6 @@
 package com.lggyx.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.lggyx.context.BaseContext;
 import com.lggyx.enumeration.SuccessCode;
@@ -274,9 +275,9 @@ public class AssessmentServiceImpl extends ServiceImpl<AssessmentMapper, Assessm
     //todo: 获取画像
     public int getPortraitId(int eScore, int rScore, int tScore) {
         //先计算e画像在数据库对应最小得分到最大得分那个区间0-50为L，51-100为H
-        String eLevel =  (eScore >= 51 ? "H" : "L");
-        String rLevel = (rScore>= 51 ? "H" : "L");
-        String tLevel = (tScore>= 51 ? "H" : "L");
+        String eLevel = (eScore >= 51 ? "H" : "L");
+        String rLevel = (rScore >= 51 ? "H" : "L");
+        String tLevel = (tScore >= 51 ? "H" : "L");
         return portraitMapper.selectOne(
                 Wrappers.<Portrait>lambdaQuery()
                         .eq(Portrait::getELevel, eLevel)
@@ -298,7 +299,63 @@ public class AssessmentServiceImpl extends ServiceImpl<AssessmentMapper, Assessm
      */
     @Override
     public Result<ResultVO> result(Long assessmentId) {
-        return null;
+        ResultVO resultVO = new ResultVO();
+        Assessment assessment = assessmentMapper.selectById(assessmentId);
+
+        resultVO.setAssessmentId(Math.toIntExact(assessmentId));
+        resultVO.setUserName(userMapper.selectById(assessment.getUserId()).getName());
+        resultVO.setType(assessment.getType());
+        resultVO.setCompletedAt(assessment.getUpdatedAt());
+
+
+        ResultVO.DimensionScores dimensionScores = new ResultVO.DimensionScores();
+        ResultVO.E e = new ResultVO.E();
+        e.setScore(assessment.getEScore());
+        e.setLevel(assessment.getEScore() >= 51 ? "H" : "L");
+        e.setDescription(getDimensionDesc('E', assessment.getEScore()));
+        ResultVO.R r = new ResultVO.R();
+        r.setScore(assessment.getRScore());
+        r.setLevel(assessment.getRScore() >= 51 ? "H" : "L");
+        r.setDescription(getDimensionDesc('R', assessment.getRScore()));
+        ResultVO.T t = new ResultVO.T();
+        t.setScore(assessment.getTScore());
+        t.setLevel(assessment.getTScore() >= 51 ? "H" : "L");
+        t.setDescription(getDimensionDesc('T', assessment.getTScore()));
+        dimensionScores.setE(e);
+        dimensionScores.setR(r);
+        dimensionScores.setT(t);
+        resultVO.setDimensionScores(dimensionScores);
+
+
+        Portrait portrait = portraitMapper.selectById(assessment.getPortraitId());
+        String Code = portrait.getELevel() + portrait.getRLevel() + portrait.getTLevel();
+        ResultVO.PortraitVO portraitVO = new ResultVO.PortraitVO();
+        portraitVO.setCode(Code);
+        portraitVO.setDescription(portrait.getDescription());
+        resultVO.setPortrait(portraitVO);
+
+        List<SubDimension> subDimensionList = subDimensionMapper.selectList(Wrappers.<SubDimension>lambdaQuery().in(
+                SubDimension::getDimensionCode, assessment.getType().charAt(0)
+        ));
+        for (SubDimension subDimension : subDimensionList) {
+            ResultVO.SubDimensionScores subDimensionScores = new ResultVO.SubDimensionScores();
+            subDimensionScores.setCode(subDimension.getCode());
+            subDimensionScores.setName(subDimension.getName());
+            subDimensionScores.setScore(getScore(subDimension.getCode().charAt(0), assessmentId));
+            subDimensionScores.setDimension(getScore(subDimension.getCode().charAt(0), assessmentId) >= 51 ? "H" : "L");
+            subDimensionScores.setActionPlan(subScoreActionMapper.selectById(getScore(subDimension.getCode().charAt(0), assessmentId)).getActionPlan());
+            resultVO.getSubDimensionScores().add(subDimensionScores);
+        }
+        return Result.success(SuccessCode.SUCCESS, resultVO);
+
+    }
+
+    public String getDimensionDesc(char dimCode, int score) {
+        QueryWrapper<ErtScoreDesc> queryWrapper = new QueryWrapper<>();
+        queryWrapper.le("min_score", score)
+                .ge("max_score", score)
+                .eq("dimension_code", dimCode);
+        return ertScoreDescMapper.selectOne(queryWrapper).getDescription();
     }
 
     /**

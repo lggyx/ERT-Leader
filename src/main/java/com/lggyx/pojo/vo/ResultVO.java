@@ -3,6 +3,7 @@ package com.lggyx.pojo.vo;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class ResultVO {
     @Schema(description = "测评类型")
     private String type;
     @Schema(description = "测评完成时间")
-    private Date completedAt;
+    private LocalDateTime completedAt;
     @Schema(description = "测评得分")
     private DimensionScores dimensionScores;
     @Schema(description = "测评画像")
