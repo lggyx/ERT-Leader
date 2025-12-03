@@ -49,7 +49,7 @@ public class JwtFilter extends OncePerRequestFilter {
                                      HttpServletResponse response,
                                      FilterChain chain) throws IOException {
         try {
-            String header = request.getHeader("Authorization");
+            String header = request.getHeader("Authorization"); //Authorization
             if (header == null || !header.startsWith("Bearer ")) {
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 response.getWriter().write("Invalid Authorization header");
