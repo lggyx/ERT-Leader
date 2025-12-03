@@ -17,7 +17,7 @@ import com.lggyx.result.Result;
  */
 public interface IQuestionService extends IService<Question> {
 
-    Result<PageResult> page(Integer page, Integer pageSize, String subDimCode);
+    Result<PageResult> page(Integer page, Integer pageSize, String subDimCode, String keyword);
 
     Result<CreateQuestionVO> create(CreateQuestionDTO createQuestionDTO);
 

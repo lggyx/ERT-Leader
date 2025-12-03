@@ -24,7 +24,7 @@ public class QuestionController {
             @RequestParam(value = "subDimCode", defaultValue = "", required = false) String subDimCode, // 筛选子维度编码
             @RequestParam(value = "keyword", defaultValue = "", required = false) String keyword // 筛选题干关键词
     ) {
-        return questionService.page(page, pageSize, subDimCode);
+        return questionService.page(page, pageSize, subDimCode, keyword);
     }
 
     @Operation(summary = "创建题目", description = "")
