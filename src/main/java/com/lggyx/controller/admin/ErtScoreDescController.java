@@ -16,12 +16,12 @@ import java.util.List;
 public class ErtScoreDescController {
     @Resource
     private IErtScoreDescService ertScoreDescService;
-    @Operation(summary = "查询得分区间", description = "")
+    @Operation(summary = "查询得分区间")
     @GetMapping("/api/admin/ert-score-desc/list")
     public Result<List<ErtScoreDescVO>> getList() {
         return ertScoreDescService.getList();
     }
-    @Operation(summary = "更新得分区间描述", description = "")
+    @Operation(summary = "更新得分区间描述")
     @PutMapping("/api/admin/ert-score-desc/{id}")
     public Result<Void> update(
             @PathVariable("id") Integer id,

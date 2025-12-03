@@ -14,7 +14,7 @@ public class AdminController {
     @Resource
     private IUserService userService;
 
-    @Operation(summary = "分页查询用户列表", description = "")
+    @Operation(summary = "分页查询用户列表")
     @GetMapping("/api/admin/user/page")
     public Result<PageResult> page(
             @RequestParam(value = "page", defaultValue = "1") Integer page, // 当前页码
@@ -26,7 +26,7 @@ public class AdminController {
         return userService.page(page, pageSize, status, role, keyword);
     }
 
-    @Operation(summary = "启用/禁用用户", description = "")
+    @Operation(summary = "启用/禁用用户")
     @PutMapping("/api/admin/user/{userId}/status")
     public Result<Void> updateStatus(
             @PathVariable("userId") Long userId,
@@ -35,7 +35,7 @@ public class AdminController {
         return userService.updateStatus(userId, status);
     }
 
-    @Operation(summary = "设置用户角色", description = "")
+    @Operation(summary = "设置用户角色")
     @PutMapping("/api/admin/user/{userId}/role")
     public Result<Void> updateRole(
             @PathVariable("userId") Long userId,
@@ -44,7 +44,7 @@ public class AdminController {
         return userService.updateRole(userId, role);
     }
 
-    @Operation(summary = "管理员查询所有测评记录", description = "")
+    @Operation(summary = "管理员查询所有测评记录")
     @GetMapping("/api/admin/assessment/page")
     public Result<PageResult> assessmentPage(
             @RequestParam(value = "page", defaultValue = "1") Integer page,

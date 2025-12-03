@@ -16,7 +16,7 @@ public class QuestionController {
     @Resource
     private IQuestionService questionService;
 
-    @Operation(summary = "分页查询题目", description = "")
+    @Operation(summary = "分页查询题目")
     @GetMapping("/api/admin/question/page")
     public Result<PageResult> page(
             @RequestParam(value = "page", defaultValue = "1") Integer page, // 当前页码
@@ -27,13 +27,13 @@ public class QuestionController {
         return questionService.page(page, pageSize, subDimCode, keyword);
     }
 
-    @Operation(summary = "创建题目", description = "")
+    @Operation(summary = "创建题目")
     @PostMapping("/api/admin/question")
     public Result<CreateQuestionVO> create(@RequestBody CreateQuestionDTO createQuestionDTO) {
         return questionService.create(createQuestionDTO);
     }
 
-    @Operation(summary = "更新题目", description = "")
+    @Operation(summary = "更新题目")
     @PutMapping("/api/admin/question/{questionId}")
     public Result<Void> update(@PathVariable("questionId") Long questionId, @RequestBody CreateQuestionDTO createQuestionDTO) {
         return questionService.update(questionId, createQuestionDTO);

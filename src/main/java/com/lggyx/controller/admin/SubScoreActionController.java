@@ -17,7 +17,7 @@ public class SubScoreActionController {
     @Resource
     private ISubScoreActionService subScoreActionService;
 
-    @Operation(summary = "查询行动方案", description = "")
+    @Operation(summary = "查询行动方案")
     @GetMapping("/api/admin/sub-score-action/list")
     public Result<List<SubScoreActionVO>> getList(
             @RequestParam(name = "subDimCode", required = false) String subDimCode // 子维度编码
@@ -25,7 +25,7 @@ public class SubScoreActionController {
         return subScoreActionService.getList(subDimCode);
     }
 
-    @Operation(summary = "更新行动方案", description = "")
+    @Operation(summary = "更新行动方案")
     @PutMapping("/api/admin/sub-score-action/{id}")
     public Result<Void> update(
             @PathVariable("id") Integer id,

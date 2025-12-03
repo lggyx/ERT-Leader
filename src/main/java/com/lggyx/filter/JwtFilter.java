@@ -1,9 +1,7 @@
 package com.lggyx.filter;
 
 import com.lggyx.context.BaseContext;
-import com.lggyx.service.impl.UserServiceImpl;
 import com.lggyx.utils.JwtUtil;
-import jakarta.annotation.Resource;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

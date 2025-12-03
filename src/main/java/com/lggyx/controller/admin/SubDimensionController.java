@@ -19,7 +19,7 @@ public class SubDimensionController {
     @Resource
     private ISubDimensionService subDimensionService;
 
-    @Operation(summary = "查询子维度列表", description = "")
+    @Operation(summary = "查询子维度列表")
     @GetMapping("/api/admin/sub-dimension/list")
     public Result<List<SubDimensionVO>> getList(
             @RequestParam(name = "dimensionCode", required = false) String dimensionCode
@@ -27,7 +27,7 @@ public class SubDimensionController {
         return subDimensionService.getList(dimensionCode);
     }
 
-    @Operation(summary = "更新子维度", description = "")
+    @Operation(summary = "更新子维度")
     @PutMapping("/api/admin/sub-dimension/{code}")
     public Result<Void> update(
             @RequestParam("code") String code,

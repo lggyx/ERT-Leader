@@ -1,7 +1,6 @@
 package com.lggyx.controller.admin;
 
 import com.lggyx.pojo.dto.ContactDTO;
-import com.lggyx.pojo.entity.Contact;
 import com.lggyx.pojo.vo.ContactVO;
 import com.lggyx.result.Result;
 import com.lggyx.service.IContactService;
@@ -24,10 +23,10 @@ public class ContactController {
     public Result<ContactVO> getContact() {
         return contactService.getContact();
     }
+
     @Operation(summary = "更新联系信息")
     @PutMapping("/api/admin/contact")
-    public Result<Void> updateContact(
-            @RequestBody ContactDTO contactDTO) {
+    public Result<Void> updateContact(@RequestBody ContactDTO contactDTO) {
         return contactService.updateContact(contactDTO);
     }
 

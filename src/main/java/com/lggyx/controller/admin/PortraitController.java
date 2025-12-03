@@ -17,13 +17,13 @@ public class PortraitController {
     @Resource
     private IPortraitService portraitService;
 
-    @Operation(summary = "查询画像列表", description = "")
+    @Operation(summary = "查询画像列表")
     @GetMapping("/api/admin/portrait/list")
     public Result<List<PortraitVO>> getList() {
         return portraitService.getList();
     }
 
-    @Operation(summary = "更新画像描述", description = "")
+    @Operation(summary = "更新画像描述")
     @PutMapping("/api/admin/portrait/{id}")
     public Result<Void> update(
             @PathVariable("id") Integer id,

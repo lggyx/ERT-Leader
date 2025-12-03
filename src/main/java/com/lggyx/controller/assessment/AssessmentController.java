@@ -34,7 +34,7 @@ public class AssessmentController {
         return assessmentService.create(createAssessmentDTO);
     }
 
-    @Operation(summary = "获取测评题目", description = "")
+    @Operation(summary = "获取测评题目")
     @PostMapping("/api/assessment/{assessmentId}/questions")
     public Result<List<GetQuestionsVO>> getQuestions(@PathVariable Long assessmentId) {
         return assessmentService.getQuestions(assessmentId);
@@ -52,13 +52,13 @@ public class AssessmentController {
         return assessmentService.complete(assessmentId);
     }
 
-    @Operation(summary = "获取测评结果详情", description = "")
+    @Operation(summary = "获取测评结果详情")
     @GetMapping("/api/assessment/{assessmentId}/result")
     public Result<ResultVO> result(@PathVariable Long assessmentId) {
         return assessmentService.result(assessmentId);
     }
 
-    @Operation(summary = "查询我的测评历史", description = "")
+    @Operation(summary = "查询我的测评历史")
     @GetMapping("/api/assessment/history")
     public Result<PageResult> getHistory(
             @RequestParam(name = "page", required = false, defaultValue = "1")

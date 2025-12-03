@@ -2,7 +2,6 @@ package com.lggyx.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lggyx.pojo.dto.SubDimensionDTO;
-import com.lggyx.pojo.entity.Dimension;
 import com.lggyx.pojo.entity.SubDimension;
 import com.lggyx.mapper.SubDimensionMapper;
 import com.lggyx.pojo.vo.SubDimensionVO;
