@@ -1,6 +1,7 @@
 # 服务端口
 server:
   port: 8912
+  address: 0.0.0.0
   servlet:
     context-path: /
 spring:
