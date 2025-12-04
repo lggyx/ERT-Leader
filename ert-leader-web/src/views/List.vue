@@ -1,42 +1,42 @@
 <template>
-  <a-row :gutter="16" style="padding: 24px">
-    <a-col :span="18">
-      <a-card title="欢迎使用 ERT 测评">
-        <div style="margin-bottom: 16px">
-          <a-button type="primary" @click="create('QUICK')">开始极速测评</a-button>
-          <a-button style="margin-left: 8px" @click="create('FULL')">开始完整测评</a-button>
-          <a-button style="margin-left: 8px" @click="goHistory">我的测评历史</a-button>
-          <a-button style="float: right" type="link" @click="goLogin">登录</a-button>
-        </div>
-        <a-divider />
+  <div class="container" style="padding: 24px 0">
+    <a-card title="欢迎使用 ERT 测评">
+      <div style="margin-bottom: 16px">
+        <a-button type="primary" @click="create('QUICK')">开始极速测评</a-button>
+        <a-button style="margin-left: 8px" @click="create('FULL')">开始完整测评</a-button>
+        <a-button style="margin-left: 8px" @click="goHistory">我的测评历史</a-button>
+        <a-button style="float: right" type="link" @click="goLogin">登录</a-button>
+      </div>
+      <a-divider />
+      <div class="responsive-table">
         <a-table :columns="columns" :data-source="questions" row-key="questionId" />
+      </div>
 
-        <a-modal
-          :open="historyVisible"
-          title="我的测评历史"
-          width="800"
-          @cancel="historyVisible = false"
-          :footer="null"
-        >
-          <div v-if="historyLoading">加载中…</div>
-          <div v-else>
-            <a-table
-              :columns="historyColumns"
-              :data-source="historyList"
-              row-key="id"
-              :pagination="{ pageSize: 10 }"
-            >
-              <template #bodyCell="{ record, column }">
-                <span v-if="column && column.key === 'action'">
-                  <a-button type="link" @click="viewHistory(record.id)">查看结果</a-button>
-                </span>
-              </template>
-            </a-table>
-          </div>
-        </a-modal>
-      </a-card>
-    </a-col>
-  </a-row>
+      <a-modal
+        :open="historyVisible"
+        title="我的测评历史"
+        width="800"
+        @cancel="historyVisible = false"
+        :footer="null"
+      >
+        <div v-if="historyLoading">加载中…</div>
+        <div v-else>
+          <a-table
+            :columns="historyColumns"
+            :data-source="historyList"
+            row-key="id"
+            :pagination="{ pageSize: 10 }"
+          >
+            <template #bodyCell="{ record, column }">
+              <span v-if="column && column.key === 'action'">
+                <a-button type="link" @click="viewHistory(record.id)">查看结果</a-button>
+              </span>
+            </template>
+          </a-table>
+        </div>
+      </a-modal>
+    </a-card>
+  </div>
 </template>
 
 <script setup>
@@ -70,7 +70,7 @@ async function load() {
     // 响应拦截器已处理，返回 PageResult { total, records }
     if (res && res.records) questions.value = res.records
   } catch (err) {
-    console.warn('加载题目失败')
+    console.warn('加载题目失败', err)
     questions.value = []
   }
 }

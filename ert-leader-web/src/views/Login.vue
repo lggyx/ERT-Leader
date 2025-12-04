@@ -1,6 +1,15 @@
 <template>
-  <a-row justify="center" style="margin-top: 80px">
-    <a-col :span="8">
+  <div
+    class="container"
+    style="
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 24px;
+    "
+  >
+    <div style="width: 100%; max-width: 400px">
       <a-card title="登录">
         <a-form :model="form" @submit.prevent="onSubmit">
           <a-form-item label="账号">
@@ -14,8 +23,8 @@
           </a-form-item>
         </a-form>
       </a-card>
-    </a-col>
-  </a-row>
+    </div>
+  </div>
 </template>
 
 <script setup>

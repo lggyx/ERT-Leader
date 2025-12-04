@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import Antd from 'ant-design-vue'
 import axios from 'axios'
+import './styles/global.css'
 
 const app = createApp(App)
 
