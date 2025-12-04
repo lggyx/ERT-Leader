@@ -28,6 +28,7 @@
 </template>
 
 <script setup>
+defineOptions({ name: 'LoginView' })
 import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { auth } from '../api'

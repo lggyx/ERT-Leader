@@ -97,6 +97,7 @@
 </template>
 
 <script setup>
+defineOptions({ name: 'ResultView' })
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { assessment } from '../api'

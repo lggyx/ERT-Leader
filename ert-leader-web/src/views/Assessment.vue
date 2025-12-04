@@ -45,6 +45,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+defineOptions({ name: 'AssessmentPage' })
 import { assessment } from '../api'
 
 const route = useRoute()

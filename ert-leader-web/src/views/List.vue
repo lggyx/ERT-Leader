@@ -40,6 +40,7 @@
 </template>
 
 <script setup>
+defineOptions({ name: 'ListPage' })
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { admin, assessment } from '../api'

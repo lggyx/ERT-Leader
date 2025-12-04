@@ -10,8 +10,8 @@
     "dev": "vite --host 0.0.0.0",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint . --fix --cache",
-    "format": "prettier --write src/"
+    "lint": "eslint --ext .js,.vue src --fix --cache",
+    "format": "prettier --write \"src/**/*.{js,ts,vue,css,md,json}\""
   },
   "dependencies": {
     "ant-design-vue": "^4.2.6",
