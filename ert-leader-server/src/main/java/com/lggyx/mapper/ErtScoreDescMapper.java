@@ -1,6 +1,6 @@
 package com.lggyx.mapper;
 
-import com.lggyx.pojo.entity.ErtScoreDesc;
+import com.lggyx.entity.ErtScoreDesc;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 

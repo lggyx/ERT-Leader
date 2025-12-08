@@ -1,7 +1,7 @@
 package com.lggyx.controller.admin;
 
-import com.lggyx.pojo.dto.ContactDTO;
-import com.lggyx.pojo.vo.ContactVO;
+import com.lggyx.dto.ContactDTO;
+import com.lggyx.vo.ContactVO;
 import com.lggyx.result.Result;
 import com.lggyx.service.IContactService;
 import io.swagger.v3.oas.annotations.Operation;

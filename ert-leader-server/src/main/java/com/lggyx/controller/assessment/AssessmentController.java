@@ -1,9 +1,9 @@
 package com.lggyx.controller.assessment;
 
 
-import com.lggyx.pojo.dto.AnswerDTO;
-import com.lggyx.pojo.dto.CreateAssessmentDTO;
-import com.lggyx.pojo.vo.*;
+import com.lggyx.dto.AnswerDTO;
+import com.lggyx.dto.CreateAssessmentDTO;
+import com.lggyx.vo.*;
 import com.lggyx.result.PageResult;
 import com.lggyx.result.Result;
 import com.lggyx.service.IAssessmentService;

@@ -1,6 +1,6 @@
 package com.lggyx.mapper;
 
-import com.lggyx.pojo.entity.Portrait;
+import com.lggyx.entity.Portrait;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 

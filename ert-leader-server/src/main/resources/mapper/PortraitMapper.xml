@@ -3,7 +3,7 @@
 <mapper namespace="com.lggyx.mapper.PortraitMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.lggyx.pojo.entity.Portrait">
+    <resultMap id="BaseResultMap" type="com.lggyx.entity.Portrait">
         <id column="id" property="id" />
         <result column="e_level" property="eLevel" />
         <result column="r_level" property="rLevel" />

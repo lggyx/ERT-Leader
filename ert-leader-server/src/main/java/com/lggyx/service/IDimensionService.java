@@ -1,9 +1,9 @@
 package com.lggyx.service;
 
-import com.lggyx.pojo.dto.DimensionDTO;
-import com.lggyx.pojo.entity.Dimension;
+import com.lggyx.dto.DimensionDTO;
+import com.lggyx.entity.Dimension;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.lggyx.pojo.vo.DimensionVO;
+import com.lggyx.vo.DimensionVO;
 import com.lggyx.result.Result;
 
 import java.util.List;

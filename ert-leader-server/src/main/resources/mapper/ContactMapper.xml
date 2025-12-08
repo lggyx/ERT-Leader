@@ -3,7 +3,7 @@
 <mapper namespace="com.lggyx.mapper.ContactMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.lggyx.pojo.entity.Contact">
+    <resultMap id="BaseResultMap" type="com.lggyx.entity.Contact">
         <id column="id" property="id" />
         <result column="company" property="company" />
         <result column="phone" property="phone" />

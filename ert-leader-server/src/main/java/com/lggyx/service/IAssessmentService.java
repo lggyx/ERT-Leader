@@ -1,10 +1,10 @@
 package com.lggyx.service;
 
-import com.lggyx.pojo.dto.AnswerDTO;
-import com.lggyx.pojo.dto.CreateAssessmentDTO;
-import com.lggyx.pojo.entity.Assessment;
+import com.lggyx.dto.AnswerDTO;
+import com.lggyx.dto.CreateAssessmentDTO;
+import com.lggyx.entity.Assessment;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.lggyx.pojo.vo.*;
+import com.lggyx.vo.*;
 import com.lggyx.result.PageResult;
 import com.lggyx.result.Result;
 

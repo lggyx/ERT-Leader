@@ -1,7 +1,7 @@
 package com.lggyx.controller.admin;
 
-import com.lggyx.pojo.dto.DimensionDTO;
-import com.lggyx.pojo.vo.DimensionVO;
+import com.lggyx.dto.DimensionDTO;
+import com.lggyx.vo.DimensionVO;
 import com.lggyx.result.Result;
 import com.lggyx.service.IDimensionService;
 import io.swagger.v3.oas.annotations.Operation;

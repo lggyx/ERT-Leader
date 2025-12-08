@@ -1,9 +1,9 @@
 package com.lggyx.service;
 
-import com.lggyx.pojo.dto.UpdateErtScoreDescDTO;
-import com.lggyx.pojo.entity.ErtScoreDesc;
+import com.lggyx.dto.UpdateErtScoreDescDTO;
+import com.lggyx.entity.ErtScoreDesc;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.lggyx.pojo.vo.ErtScoreDescVO;
+import com.lggyx.vo.ErtScoreDescVO;
 import com.lggyx.result.Result;
 
 import java.util.List;

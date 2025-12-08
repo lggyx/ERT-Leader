@@ -1,9 +1,9 @@
 package com.lggyx.service;
 
-import com.lggyx.pojo.dto.UpdatePortraitDTO;
-import com.lggyx.pojo.entity.Portrait;
+import com.lggyx.dto.UpdatePortraitDTO;
+import com.lggyx.entity.Portrait;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.lggyx.pojo.vo.PortraitVO;
+import com.lggyx.vo.PortraitVO;
 import com.lggyx.result.Result;
 
 import java.util.List;

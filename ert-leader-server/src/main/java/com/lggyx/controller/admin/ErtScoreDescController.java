@@ -1,7 +1,7 @@
 package com.lggyx.controller.admin;
 
-import com.lggyx.pojo.dto.UpdateErtScoreDescDTO;
-import com.lggyx.pojo.vo.ErtScoreDescVO;
+import com.lggyx.dto.UpdateErtScoreDescDTO;
+import com.lggyx.vo.ErtScoreDescVO;
 import com.lggyx.result.Result;
 import com.lggyx.service.IErtScoreDescService;
 import io.swagger.v3.oas.annotations.Operation;

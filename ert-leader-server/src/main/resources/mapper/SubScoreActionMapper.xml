@@ -3,7 +3,7 @@
 <mapper namespace="com.lggyx.mapper.SubScoreActionMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.lggyx.pojo.entity.SubScoreAction">
+    <resultMap id="BaseResultMap" type="com.lggyx.entity.SubScoreAction">
         <id column="id" property="id" />
         <result column="sub_dim_code" property="subDimCode" />
         <result column="min_score" property="minScore" />

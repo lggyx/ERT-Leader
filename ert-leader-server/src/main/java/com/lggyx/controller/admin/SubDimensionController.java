@@ -1,9 +1,9 @@
 package com.lggyx.controller.admin;
 
-import com.lggyx.pojo.dto.SubDimensionDTO;
-import com.lggyx.pojo.entity.Dimension;
-import com.lggyx.pojo.entity.SubDimension;
-import com.lggyx.pojo.vo.SubDimensionVO;
+import com.lggyx.dto.SubDimensionDTO;
+import com.lggyx.entity.Dimension;
+import com.lggyx.entity.SubDimension;
+import com.lggyx.vo.SubDimensionVO;
 import com.lggyx.result.Result;
 import com.lggyx.service.ISubDimensionService;
 import io.swagger.v3.oas.annotations.Operation;

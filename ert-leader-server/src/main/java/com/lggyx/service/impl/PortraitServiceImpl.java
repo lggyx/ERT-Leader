@@ -2,10 +2,10 @@ package com.lggyx.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.lggyx.enumeration.SuccessCode;
-import com.lggyx.pojo.dto.UpdatePortraitDTO;
-import com.lggyx.pojo.entity.Portrait;
+import com.lggyx.dto.UpdatePortraitDTO;
+import com.lggyx.entity.Portrait;
 import com.lggyx.mapper.PortraitMapper;
-import com.lggyx.pojo.vo.PortraitVO;
+import com.lggyx.vo.PortraitVO;
 import com.lggyx.result.Result;
 import com.lggyx.service.IPortraitService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

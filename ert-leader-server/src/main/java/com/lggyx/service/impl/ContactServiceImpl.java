@@ -2,10 +2,10 @@ package com.lggyx.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.lggyx.enumeration.SuccessCode;
-import com.lggyx.pojo.dto.ContactDTO;
-import com.lggyx.pojo.entity.Contact;
+import com.lggyx.dto.ContactDTO;
+import com.lggyx.entity.Contact;
 import com.lggyx.mapper.ContactMapper;
-import com.lggyx.pojo.vo.ContactVO;
+import com.lggyx.vo.ContactVO;
 import com.lggyx.result.Result;
 import com.lggyx.service.IContactService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

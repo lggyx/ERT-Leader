@@ -3,7 +3,7 @@
 <mapper namespace="com.lggyx.mapper.AssessmentMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.lggyx.pojo.entity.Assessment">
+    <resultMap id="BaseResultMap" type="com.lggyx.entity.Assessment">
         <id column="id" property="id" />
         <result column="user_id" property="userId" />
         <result column="type" property="type" />

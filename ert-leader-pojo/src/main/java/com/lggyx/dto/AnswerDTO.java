@@ -1,4 +1,4 @@
-package com.lggyx.pojo.dto;
+package com.lggyx.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

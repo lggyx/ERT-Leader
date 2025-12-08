@@ -1,7 +1,7 @@
 package com.lggyx.controller.admin;
 
-import com.lggyx.pojo.dto.CreateQuestionDTO;
-import com.lggyx.pojo.vo.CreateQuestionVO;
+import com.lggyx.dto.CreateQuestionDTO;
+import com.lggyx.vo.CreateQuestionVO;
 import com.lggyx.result.PageResult;
 import com.lggyx.result.Result;
 import com.lggyx.service.IQuestionService;

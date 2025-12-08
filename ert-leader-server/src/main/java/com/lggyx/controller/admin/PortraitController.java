@@ -1,7 +1,7 @@
 package com.lggyx.controller.admin;
 
-import com.lggyx.pojo.dto.UpdatePortraitDTO;
-import com.lggyx.pojo.vo.PortraitVO;
+import com.lggyx.dto.UpdatePortraitDTO;
+import com.lggyx.vo.PortraitVO;
 import com.lggyx.result.Result;
 import com.lggyx.service.IPortraitService;
 import io.swagger.v3.oas.annotations.Operation;

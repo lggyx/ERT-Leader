@@ -1,9 +1,9 @@
 package com.lggyx.service;
 
-import com.lggyx.pojo.dto.UpdateSubScoreActionDTO;
-import com.lggyx.pojo.entity.SubScoreAction;
+import com.lggyx.dto.UpdateSubScoreActionDTO;
+import com.lggyx.entity.SubScoreAction;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.lggyx.pojo.vo.SubScoreActionVO;
+import com.lggyx.vo.SubScoreActionVO;
 import com.lggyx.result.Result;
 
 import java.util.List;

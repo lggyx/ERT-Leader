@@ -1,6 +1,6 @@
 package com.lggyx.service;
 
-import com.lggyx.pojo.entity.Answer;
+import com.lggyx.entity.Answer;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

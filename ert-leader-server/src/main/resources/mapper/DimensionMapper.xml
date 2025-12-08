@@ -3,7 +3,7 @@
 <mapper namespace="com.lggyx.mapper.DimensionMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.lggyx.pojo.entity.Dimension">
+    <resultMap id="BaseResultMap" type="com.lggyx.entity.Dimension">
         <id column="code" property="code" />
         <result column="name" property="name" />
         <result column="description" property="description" />

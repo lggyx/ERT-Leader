@@ -1,11 +1,11 @@
 package com.lggyx.controller.auth;
 
 
-import com.lggyx.pojo.dto.LoginDTO;
-import com.lggyx.pojo.dto.UserDTO;
-import com.lggyx.pojo.vo.CurrentUserVO;
-import com.lggyx.pojo.vo.LoginVO;
-import com.lggyx.pojo.vo.UserVO;
+import com.lggyx.dto.LoginDTO;
+import com.lggyx.dto.UserDTO;
+import com.lggyx.vo.CurrentUserVO;
+import com.lggyx.vo.LoginVO;
+import com.lggyx.vo.UserVO;
 import com.lggyx.result.Result;
 import com.lggyx.service.IUserService;
 import io.swagger.v3.oas.annotations.Operation;

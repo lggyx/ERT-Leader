@@ -1,4 +1,4 @@
-package com.lggyx.pojo.entity;
+package com.lggyx.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;

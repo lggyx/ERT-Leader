@@ -4,9 +4,21 @@
     <parent>
         <groupId>com.lggyx</groupId>
         <artifactId>ERT-Leader</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.0.1</version>
     </parent>
     <artifactId>ert-leader-pojo</artifactId>
-    <name>Archetype - ert-leader-pojo</name>
-    <url>http://maven.apache.org</url>
+    <name>ert-leader-pojo</name>
+    <description>ert-leader-pojo</description>
+    <version>0.0.1</version>
+    <packaging>jar</packaging>
+    <dependencies>
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+        </dependency>
+    </dependencies>
 </project>

@@ -1,6 +1,6 @@
 package com.lggyx.service.impl;
 
-import com.lggyx.pojo.entity.Answer;
+import com.lggyx.entity.Answer;
 import com.lggyx.mapper.AnswerMapper;
 import com.lggyx.service.IAnswerService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

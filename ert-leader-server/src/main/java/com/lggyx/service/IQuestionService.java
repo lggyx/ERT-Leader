@@ -1,9 +1,9 @@
 package com.lggyx.service;
 
-import com.lggyx.pojo.dto.CreateQuestionDTO;
-import com.lggyx.pojo.entity.Question;
+import com.lggyx.dto.CreateQuestionDTO;
+import com.lggyx.entity.Question;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.lggyx.pojo.vo.CreateQuestionVO;
+import com.lggyx.vo.CreateQuestionVO;
 import com.lggyx.result.PageResult;
 import com.lggyx.result.Result;
 

@@ -2,10 +2,10 @@ package com.lggyx.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.lggyx.enumeration.SuccessCode;
-import com.lggyx.pojo.dto.DimensionDTO;
-import com.lggyx.pojo.entity.Dimension;
+import com.lggyx.dto.DimensionDTO;
+import com.lggyx.entity.Dimension;
 import com.lggyx.mapper.DimensionMapper;
-import com.lggyx.pojo.vo.DimensionVO;
+import com.lggyx.vo.DimensionVO;
 import com.lggyx.result.Result;
 import com.lggyx.service.IDimensionService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

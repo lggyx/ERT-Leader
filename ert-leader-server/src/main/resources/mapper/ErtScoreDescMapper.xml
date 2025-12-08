@@ -3,7 +3,7 @@
 <mapper namespace="com.lggyx.mapper.ErtScoreDescMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.lggyx.pojo.entity.ErtScoreDesc">
+    <resultMap id="BaseResultMap" type="com.lggyx.entity.ErtScoreDesc">
         <id column="id" property="id" />
         <result column="dimension_code" property="dimensionCode" />
         <result column="min_score" property="minScore" />

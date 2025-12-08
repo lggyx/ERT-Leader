@@ -1,6 +1,6 @@
 package com.lggyx.service.impl;
 
-import com.lggyx.pojo.entity.Options;
+import com.lggyx.entity.Options;
 import com.lggyx.mapper.OptionsMapper;
 import com.lggyx.service.IOptionsService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

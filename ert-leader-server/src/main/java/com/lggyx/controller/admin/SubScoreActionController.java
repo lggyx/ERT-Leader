@@ -1,7 +1,7 @@
 package com.lggyx.controller.admin;
 
-import com.lggyx.pojo.dto.UpdateSubScoreActionDTO;
-import com.lggyx.pojo.vo.SubScoreActionVO;
+import com.lggyx.dto.UpdateSubScoreActionDTO;
+import com.lggyx.vo.SubScoreActionVO;
 import com.lggyx.result.Result;
 import com.lggyx.service.ISubScoreActionService;
 import io.swagger.v3.oas.annotations.Operation;
