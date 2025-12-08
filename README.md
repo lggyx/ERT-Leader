@@ -44,7 +44,7 @@ mvnw clean spring-boot:run
 
 4. 启动前端服务<br/>
 ```bash
-cd ert-leader-web
+cd ert-leader-ui
 npm install
 npm run dev
 ```
