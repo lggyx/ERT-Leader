@@ -28,12 +28,19 @@ instance.interceptors.request.use((config) => {
 instance.interceptors.response.use(
   (res) => {
     console.log(`[API Response]`, res.data)
-    const result = res.data
-    // 如果后端返回 code 不为 200 或 0，可在此处理错误
-    if (result && (result.code === 200 || result.code === 0)) {
-      return result.data || result
+    const body = res.data
+    // 检查是否是标准 { code, data, ... } 包装格式
+    if (body && typeof body.code !== 'undefined') {
+      // 如果是，并且 code 表示成功，则只返回 data 部分
+      if (body.code === 200 || body.code === 0) {
+        return body.data
+      }
+      // 如果 code 表示失败，可以返回整个 body 或 Promise.reject
+      // 这里保持原有逻辑，让业务代码自行处理
+      return body
     }
-    return result
+    // 如果不是标准格式，直接返回响应体
+    return body
   },
   (error) => {
     console.error('[API Error]', {

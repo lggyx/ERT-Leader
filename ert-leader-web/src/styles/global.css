@@ -12,6 +12,7 @@ body,
   margin: 0;
   padding: 0;
 }
+
 body {
   font-size: var(--font-size-base);
   -webkit-font-smoothing: antialiased;
@@ -47,6 +48,7 @@ body {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }
+
 .responsive-table table {
   width: 100%;
   min-width: 700px; /* 低于此宽度时出现滚动 */
@@ -70,6 +72,7 @@ body {
 }
 
 /* 深色模式支持（完整优化） */
+/*
 @media (prefers-color-scheme: dark) {
   :root {
     color-scheme: dark;
@@ -88,7 +91,7 @@ body {
     background: #0a0e27;
   }
 
-  /* 卡片样式 */
+  !* 卡片样式 *!
   .ant-card {
     background: #1a1f3a;
     border-color: #2d3748;
@@ -104,7 +107,7 @@ body {
     color: #e8eef8;
   }
 
-  /* 文本 */
+  !* 文本 *!
   .ant-descriptions-item-label {
     color: #9ca3b3;
   }
@@ -113,7 +116,7 @@ body {
     color: #e8eef8;
   }
 
-  /* 按钮 */
+  !* 按钮 *!
   .ant-btn-default {
     color: #9ca3b3;
     border-color: #2d3748;
@@ -133,7 +136,7 @@ body {
     color: #90caf9;
   }
 
-  /* 表格 */
+  !* 表格 *!
   .ant-table {
     background: #1a1f3a;
     color: #e8eef8;
@@ -160,7 +163,7 @@ body {
     color: #e8eef8;
   }
 
-  /* 模态框 */
+  !* 模态框 *!
   .ant-modal {
     background: #1a1f3a;
   }
@@ -178,7 +181,7 @@ body {
     color: #e8eef8;
   }
 
-  /* 表单 */
+  !* 表单 *!
   .ant-form-item-label > label {
     color: #e8eef8;
   }
@@ -203,12 +206,12 @@ body {
     box-shadow: 0 0 0 2px rgba(100, 181, 246, 0.2);
   }
 
-  /* 分割线 */
+  !* 分割线 *!
   .ant-divider {
     border-color: #2d3748;
   }
 
-  /* 单选框 */
+  !* 单选框 *!
   .ant-radio-wrapper {
     color: #e8eef8;
   }
@@ -222,7 +225,7 @@ body {
     border-color: #64b5f6;
   }
 
-  /* 折叠面板 */
+  !* 折叠面板 *!
   .ant-collapse {
     background: #1a1f3a;
     border-color: #2d3748;
@@ -236,7 +239,7 @@ body {
     color: #64b5f6;
   }
 
-  /* 分页 */
+  !* 分页 *!
   .ant-pagination-item {
     background: #161b2f;
     border-color: #2d3748;
@@ -255,7 +258,7 @@ body {
     color: #fff;
   }
 
-  /* 所有文本元素 - 确保高对比度 */
+  !* 所有文本元素 - 确保高对比度 *!
   * {
     color: inherit;
   }
@@ -274,14 +277,14 @@ body {
     color: #e8eef8;
   }
 
-  /* 强制覆盖黑色文字 */
+  !* 强制覆盖黑色文字 *!
   [style*='color: rgb(0, 0, 0)'],
   [style*='color:#000'],
   [style*='color: black'] {
     color: #e8eef8 !important;
   }
 
-  /* 链接 */
+  !* 链接 *!
   a {
     color: #64b5f6;
   }
@@ -290,7 +293,7 @@ body {
     color: #90caf9;
   }
 
-  /* 标题 */
+  !* 标题 *!
   h1,
   h2,
   h3,
@@ -300,13 +303,13 @@ body {
     color: #e8eef8 !important;
   }
 
-  /* 警告/错误 */
+  !* 警告/错误 *!
   .ant-alert {
     background: #1a1f3a;
     border-color: #2d3748;
   }
 
-  /* Descriptions 描述列表特殊处理 */
+  !* Descriptions 描述列表特殊处理 *!
   .ant-descriptions-bordered .ant-descriptions-item-label {
     background: #161b2f;
     color: #9ca3b3;
@@ -319,11 +322,12 @@ body {
     border-color: #2d3748;
   }
 
-  /* 空状态文本 */
+  !* 空状态文本 *!
   .ant-empty-description {
     color: #9ca3b3;
   }
 }
+*/
 
 /* 超小屏幕（手机）*/
 @media (max-width: 576px) {
@@ -331,21 +335,26 @@ body {
     --font-size-base: 13px;
     --content-padding: 12px;
   }
+
   .ant-card {
     padding: 8px;
   }
+
   .ant-btn {
     padding: 4px 8px;
     min-height: 40px;
   }
+
   .ant-table-thead > tr > th,
   .ant-table-tbody > tr > td {
     padding: 6px 8px;
     font-size: 12px;
   }
+
   .ant-modal {
     width: 95vw !important;
   }
+
   h3 {
     font-size: 14px !important;
   }
@@ -356,20 +365,25 @@ body {
   :root {
     --font-size-base: 14px;
   }
+
   .ant-card {
     padding: 12px;
   }
+
   .ant-btn {
     padding: 6px 10px;
     min-height: 40px;
   }
+
   .ant-table-thead > tr > th,
   .ant-table-tbody > tr > td {
     padding: 8px 12px;
   }
+
   .ant-modal {
     width: 90vw !important;
   }
+
   .dimension-card-row {
     grid-template-columns: 1fr;
   }

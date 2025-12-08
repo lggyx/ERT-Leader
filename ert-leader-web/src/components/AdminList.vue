@@ -1,103 +1,121 @@
 <template>
   <div>
-    <div style="margin-bottom: 12px; display: flex; gap: 8px; align-items: center">
-      <a-input-search
-        v-if="showSearch"
-        placeholder="搜索"
-        style="width: 240px"
-        @search="onSearch"
-      />
-      <div style="margin-left: auto">
-        <slot name="actions"></slot>
-      </div>
+    <div
+      style="
+        margin-bottom: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      "
+    >
+      <slot name="actions"></slot>
     </div>
 
-    <div>
-      <div v-if="loading" style="text-align: center; padding: 24px">加载中…</div>
-      <div v-else>
-        <div class="responsive-table">
-          <a-table :columns="columns" :data-source="data" :pagination="false" :row-key="rowKey">
-            <template v-if="$slots.bodyCell" #bodyCell="slotProps">
-              <slot name="bodyCell" v-bind="slotProps"></slot>
-            </template>
-          </a-table>
-        </div>
-
-        <div style="margin-top: 12px; text-align: right">
-          <a-pagination :current="page" :page-size="pageSize" :total="total" @change="changePage" />
-        </div>
-      </div>
-    </div>
+    <a-table
+      :columns="columns"
+      :data-source="dataSource"
+      :pagination="showPagination ? pagination : false"
+      :row-key="rowKey"
+      :loading="loading"
+      @change="handleTableChange"
+    >
+      <template v-if="$slots.bodyCell" #bodyCell="slotProps">
+        <slot name="bodyCell" v-bind="slotProps"></slot>
+      </template>
+    </a-table>
   </div>
 </template>
 
 <script setup>
-import { ref, watch, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, defineProps, defineExpose, reactive } from 'vue'
 
 const props = defineProps({
-  fetchData: { type: Function, required: true },
-  columns: { type: Array, required: true },
-  rowKey: { type: String, default: 'id' },
-  showSearch: { type: Boolean, default: true },
+  fetchData: {
+    type: Function,
+    required: true,
+  },
+  columns: {
+    type: Array,
+    required: true,
+  },
+  rowKey: {
+    type: String,
+    default: 'id',
+  },
+  showPagination: {
+    type: Boolean,
+    default: true,
+  },
 })
 
-const data = ref([])
+const dataSource = ref([])
 const loading = ref(false)
-const page = ref(1)
-const pageSize = ref(10)
-const total = ref(0)
-const search = ref('')
+const pagination = reactive({
+  current: 1,
+  pageSize: 10,
+  total: 0,
+  showSizeChanger: true,
+  pageSizeOptions: ['10', '20', '50'],
+})
 
-async function load() {
+// 加载数据
+async function loadData() {
   loading.value = true
   try {
-    const res = await props.fetchData(page.value, pageSize.value, search.value)
-    // 支持 PageResult { total, records } 或数组
-    if (res && res.records) {
-      data.value = res.records
-      total.value = res.total || res.records.length
-    } else if (Array.isArray(res)) {
-      data.value = res
-      total.value = res.length
-    } else {
-      data.value = []
-      total.value = 0
+    const res = await props.fetchData(
+      pagination.current,
+      pagination.pageSize,
+    )
+    // 优先处理分页对象
+    if (res && typeof res.records !== 'undefined') {
+      dataSource.value = res.records
+      pagination.total = res.total
     }
-  } catch (err) {
-    console.error('AdminList load error', err)
-    data.value = []
-    total.value = 0
+    // 其次处理纯数组
+    else if (Array.isArray(res)) {
+      dataSource.value = res
+      pagination.total = res.length
+    }
+    // 处理异常情况
+    else {
+      console.warn('AdminList: fetchData did not return a valid array or PageResult object.')
+      dataSource.value = []
+      pagination.total = 0
+    }
+  } catch (error) {
+    console.error('AdminList: Failed to fetch data.', error)
+    dataSource.value = []
+    pagination.total = 0
   } finally {
     loading.value = false
   }
 }
 
-function changePage(p) {
-  page.value = p
-  load()
+// 处理表格变化（仅在显示分页时有效）
+function handleTableChange(pager) {
+  if (!props.showPagination) return
+  pagination.current = pager.current
+  pagination.pageSize = pager.pageSize
+  loadData()
 }
 
-function onSearch(val) {
-  search.value = val
-  page.value = 1
-  load()
+function refresh() {
+  loadData()
 }
+
+function search() {
+  if (props.showPagination) {
+    pagination.current = 1
+  }
+  loadData()
+}
+
+defineExpose({
+  refresh,
+  search,
+})
 
 onMounted(() => {
-  load()
-  // 监听全局刷新事件，允许外部模块触发局部刷新
-  window.addEventListener('admin-refresh', load)
+  loadData()
 })
-
-onUnmounted(() => {
-  window.removeEventListener('admin-refresh', load)
-})
-
-watch([page, pageSize], () => load())
 </script>
-
-<style scoped>
-.responsive-table {
-  overflow-x: auto;
-}
-</style>

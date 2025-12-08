@@ -90,7 +90,7 @@ router.beforeEach(async (to, from, next) => {
       // 请求后端获取当前用户信息并验证角色
       const user = await auth.current()
       const roles = user?.role ? [user.role] : user?.roles || []
-      if (Array.isArray(roles) && roles.includes('ADMIN')) return next()
+      if (Array.isArray(roles) && roles.includes('SUPER_ADMIN')) return next()
       return next({ path: '/' })
     }
   } catch {
